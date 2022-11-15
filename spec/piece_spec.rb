@@ -10,6 +10,10 @@ describe Piece do
       it "returns a Piece object" do
         expect(Piece.create_piece).to be_a(Piece)
       end
+
+      it "returns a Piece object of type NONE" do
+        expect(Piece.create_piece.type).to eq(PieceType::NONE)
+      end
     end
   end
 end
