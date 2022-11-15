@@ -22,7 +22,9 @@ class Piece
   def initialize(type = NONE, color = nil)
     @type = type
     @color = color
-    create_piece
   end
 
+  def self. create_piece
+    Piece.new
+  end
 end
