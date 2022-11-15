@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "../lib/piece"
+require_relative "../lib/pieces/pawn"
 
 describe Piece do
   describe "#self.create_piece" do

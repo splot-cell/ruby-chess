@@ -21,12 +21,24 @@ class Piece
 
   attr_reader :type, :color
 
+  @class_register = [Piece]
+
   def initialize(type = NONE, color = nil)
     @type = type
     @color = color
   end
 
-  def self. create_piece
-    Piece.new
+  def self. create_piece(type = NONE)
+    return Piece.new if type == NONE
+
+    @class_register.find { |candidate| candidate.type == PAWN }.new
+  end
+
+  def self.register(candidate)
+    @class_register << candidate
+  end
+
+  def self.type
+    NONE
   end
 end
