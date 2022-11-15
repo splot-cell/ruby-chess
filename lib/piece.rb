@@ -19,6 +19,8 @@ class Piece
   include PieceType
   include PieceColor
 
+  attr_reader :type, :color
+
   def initialize(type = NONE, color = nil)
     @type = type
     @color = color
