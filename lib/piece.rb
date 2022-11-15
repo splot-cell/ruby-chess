@@ -1,16 +1,5 @@
 # frozen_string_literal: true
 
-class Piece
-  include PieceType
-  include PieceColor
-
-  def initialize(type = NONE, color = nil)
-    @type = type
-    @color = color
-  end
-
-end
-
 module PieceType
   NONE = 0
   PAWN = 1
@@ -24,4 +13,16 @@ end
 module PieceColor
   WHITE = 0
   BLACK = 1
+end
+
+class Piece
+  include PieceType
+  include PieceColor
+
+  def initialize(type = NONE, color = nil)
+    @type = type
+    @color = color
+    create_piece
+  end
+
 end
