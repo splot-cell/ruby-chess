@@ -1,0 +1,5 @@
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+AllCops:
+  Exclude:
+    - "sepc/spec_helper.rb"
