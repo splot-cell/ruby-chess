@@ -14,6 +14,10 @@ describe Piece do
       it "returns a Piece object of type NONE" do
         expect(Piece.create_piece.type).to eq(PieceType::NONE)
       end
+
+      it "returns a Piece object of color nil" do
+        expect(Piece.create_piece.color).to be(nil)
+      end
     end
   end
 end
