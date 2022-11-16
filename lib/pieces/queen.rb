@@ -3,6 +3,9 @@
 require_relative "../piece"
 
 class Queen < Piece
+  def initialize
+    super(self.class.type)
+  end
 
   def self.type
     QUEEN
