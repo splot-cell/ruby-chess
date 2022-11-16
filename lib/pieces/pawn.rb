@@ -3,6 +3,9 @@
 require_relative "../piece"
 
 class Pawn < Piece
+  def initialize
+    super(self.class.type)
+  end
 
   def self.type
     PAWN
