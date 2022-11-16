@@ -28,6 +28,10 @@ describe Piece do
       it "returns an object of type Pawn" do
         expect(Piece.create(PieceType::PAWN)).to be_a(Pawn)
       end
+
+      it "returns a Piece object with type PAWN" do
+        expect(Piece.create(PieceType::PAWN).type).to eq(PieceType::PAWN)
+      end
     end
 
     context "when type is KNIGHT" do
