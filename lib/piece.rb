@@ -28,8 +28,8 @@ class Piece
     @color = color
   end
 
-  def self. create(type = NONE)
-    @class_register.find { |candidate| candidate.type == type }.new
+  def self. create(type = NONE, color = nil)
+    @class_register.find { |candidate| candidate.type == type }.new(type, color)
   end
 
   def self.register(candidate)
