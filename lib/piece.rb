@@ -28,7 +28,7 @@ class Piece
     @color = color
   end
 
-  def self. create_piece(type = NONE)
+  def self. create(type = NONE)
     return Piece.new if type == NONE
 
     @class_register.find { |candidate| candidate.type == PAWN }.new
