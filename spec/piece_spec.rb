@@ -32,6 +32,18 @@ describe Piece do
       it "returns a Piece object with type PAWN" do
         expect(Piece.create(PieceType::PAWN).type).to eq(PieceType::PAWN)
       end
+
+      context "when the color is WHITE" do
+        it "returns a Piece object of color WHITE" do
+          expect(Piece.create(PieceType::PAWN, PieceColor::WHITE).color).to eq(PieceColor::WHITE)
+        end
+      end
+
+      context "when the color is BLACK" do
+        it "returns a Piece obejct of color BLACK" do
+          expect(Piece.create(PieceType::PAWN, PieceColor::BLACK).color).to eq(PieceColor::BLACK)
+        end
+      end
     end
 
     context "when type is KNIGHT" do
