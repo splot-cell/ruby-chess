@@ -29,9 +29,7 @@ class Piece
   end
 
   def self. create(type = NONE)
-    return Piece.new if type == NONE
-
-    @class_register.find { |candidate| candidate.type == PAWN }.new
+    @class_register.find { |candidate| candidate.type == type }.new
   end
 
   def self.register(candidate)

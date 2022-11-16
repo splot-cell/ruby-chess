@@ -5,7 +5,7 @@ require_relative "../piece"
 class King < Piece
 
   def self.type
-    King
+    KING
   end
 end
 
