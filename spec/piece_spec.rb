@@ -54,6 +54,18 @@ describe Piece do
       it "returns a Piece object with type KNIGHT" do
         expect(Piece.create(PieceType::KNIGHT).type).to eq(PieceType::KNIGHT)
       end
+
+      context "when the color is WHITE" do
+        it "returns a Piece object of color WHITE" do
+          expect(Piece.create(PieceType::KNIGHT, PieceColor::WHITE).color).to eq(PieceColor::WHITE)
+        end
+      end
+
+      context "when the color is BLACK" do
+        it "returns a Piece obejct of color BLACK" do
+          expect(Piece.create(PieceType::KNIGHT, PieceColor::BLACK).color).to eq(PieceColor::BLACK)
+        end
+      end
     end
 
     context "when type is BISHOP" do
@@ -63,6 +75,18 @@ describe Piece do
 
       it "returns a Piece object with type BISHOP" do
         expect(Piece.create(PieceType::BISHOP).type).to eq(PieceType::BISHOP)
+      end
+
+      context "when the color is WHITE" do
+        it "returns a Piece object of color WHITE" do
+          expect(Piece.create(PieceType::BISHOP, PieceColor::WHITE).color).to eq(PieceColor::WHITE)
+        end
+      end
+
+      context "when the color is BLACK" do
+        it "returns a Piece obejct of color BLACK" do
+          expect(Piece.create(PieceType::BISHOP, PieceColor::BLACK).color).to eq(PieceColor::BLACK)
+        end
       end
     end
 
@@ -74,6 +98,18 @@ describe Piece do
       it "returns a Piece object with type ROOK" do
         expect(Piece.create(PieceType::ROOK).type).to eq(PieceType::ROOK)
       end
+
+      context "when the color is WHITE" do
+        it "returns a Piece object of color WHITE" do
+          expect(Piece.create(PieceType::ROOK, PieceColor::WHITE).color).to eq(PieceColor::WHITE)
+        end
+      end
+
+      context "when the color is BLACK" do
+        it "returns a Piece obejct of color BLACK" do
+          expect(Piece.create(PieceType::ROOK, PieceColor::BLACK).color).to eq(PieceColor::BLACK)
+        end
+      end
     end
 
     context "when type is QUEEN" do
@@ -84,6 +120,18 @@ describe Piece do
       it "returns a Piece object with type QUEEN" do
         expect(Piece.create(PieceType::QUEEN).type).to eq(PieceType::QUEEN)
       end
+
+      context "when the color is WHITE" do
+        it "returns a Piece object of color WHITE" do
+          expect(Piece.create(PieceType::QUEEN, PieceColor::WHITE).color).to eq(PieceColor::WHITE)
+        end
+      end
+
+      context "when the color is BLACK" do
+        it "returns a Piece obejct of color BLACK" do
+          expect(Piece.create(PieceType::QUEEN, PieceColor::BLACK).color).to eq(PieceColor::BLACK)
+        end
+      end
     end
 
     context "when type is KING" do
@@ -93,6 +141,18 @@ describe Piece do
 
       it "returns a Piece object with type KING" do
         expect(Piece.create(PieceType::KING).type).to eq(PieceType::KING)
+      end
+
+      context "when the color is WHITE" do
+        it "returns a Piece object of color WHITE" do
+          expect(Piece.create(PieceType::KING, PieceColor::WHITE).color).to eq(PieceColor::WHITE)
+        end
+      end
+
+      context "when the color is BLACK" do
+        it "returns a Piece obejct of color BLACK" do
+          expect(Piece.create(PieceType::KING, PieceColor::BLACK).color).to eq(PieceColor::BLACK)
+        end
       end
     end
   end
