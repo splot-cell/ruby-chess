@@ -24,5 +24,35 @@ describe Piece do
         expect(Piece.create(PieceType::PAWN)).to be_a(Pawn)
       end
     end
+
+    context "when type is KNIGHT" do
+      it "returns an object of type Knight" do
+        expect(Piece.create(PieceType::KNIGHT)).to be_a(Knight)
+      end
+    end
+
+    context "when type is BISHOP" do
+      it "returns an object of type Bishop" do
+        expect(Piece.create(PieceType::BISHOP)).to be_a(Bishop)
+      end
+    end
+
+    context "when type is ROOK" do
+      it "returns an object of type Rook" do
+        expect(Piece.create(PieceType::ROOK)).to be_a(Rook)
+      end
+    end
+
+    context "when type is QUEEN" do
+      it "returns an object of type Queen" do
+        expect(Piece.create(PieceType::QUEEN)).to be_a(Queen)
+      end
+    end
+
+    context "when type is KING" do
+      it "returns an object of type King" do
+        expect(Piece.create(PieceType::KING)).to be_a(King)
+      end
+    end
   end
 end
