@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 module PieceType
-  NONE = 0
-  PAWN = 1
-  KNIGHT = 2
+  KING = 0
+  QUEEN = 1
+  ROOK = 2
   BISHOP = 3
-  ROOK = 4
-  QUEEN = 5
-  KING = 6
+  KNIGHT = 4
+  PAWN = 5
+  NONE = 6
 end
 
 module PieceColor
   WHITE = 0
-  BLACK = 1
+  BLACK = 6
 end
 
 class Piece
@@ -26,6 +26,12 @@ class Piece
   def initialize(type = NONE, color = nil)
     @type = type
     @color = color
+  end
+
+  def to_s
+    return " " if type == NONE
+
+    (0x2654 + color + type).chr(Encoding::UTF_8)
   end
 
   def self. create(type = NONE, color = nil)
