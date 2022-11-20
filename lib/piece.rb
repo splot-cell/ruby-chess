@@ -34,7 +34,7 @@ class Piece
     (0x2654 + color + type).chr(Encoding::UTF_8)
   end
 
-  def self. create(type = NONE, color = nil)
+  def self.create(type = NONE, color = nil)
     @class_register.find { |candidate| candidate.type == type }.new(type, color)
   end
 
