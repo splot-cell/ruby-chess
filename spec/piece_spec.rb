@@ -206,5 +206,47 @@ describe Piece do
         expect(white_pawn.to_s).to eq("♙")
       end
     end
+
+    context "when the piece is a black king" do
+      subject(:black_king) { described_class.create(PieceType::KING, PieceColor::BLACK) }
+      it "returns ♚" do
+        expect(black_king.to_s).to eq("♚")
+      end
+    end
+
+    context "when the piece is a black queen" do
+      subject(:black_queen) { described_class.create(PieceType::QUEEN, PieceColor::BLACK) }
+      it "returns ♛" do
+        expect(black_queen.to_s).to eq("♛")
+      end
+    end
+
+    context "when the piece is a black rook" do
+      subject(:black_rook) { described_class.create(PieceType::ROOK, PieceColor::BLACK) }
+      it "returns ♜" do
+        expect(black_rook.to_s).to eq("♜")
+      end
+    end
+
+    context "when the piece is a black bishop" do
+      subject(:black_bishop) { described_class.create(PieceType::BISHOP, PieceColor::BLACK) }
+      it "returns ♝" do
+        expect(black_bishop.to_s).to eq("♝")
+      end
+    end
+
+    context "when the piece is a black knight" do
+      subject(:black_knight) { described_class.create(PieceType::KNIGHT, PieceColor::BLACK) }
+      it "returns ♞" do
+        expect(black_knight.to_s).to eq("♞")
+      end
+    end
+
+    context "when the piece is a black pawn" do
+      subject(:black_pawn) { described_class.create(PieceType::PAWN, PieceColor::BLACK) }
+      it "returns ♟" do
+        expect(black_pawn.to_s).to eq("♟")
+      end
+    end
   end
 end
