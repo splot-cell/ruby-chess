@@ -156,4 +156,55 @@ describe Piece do
       end
     end
   end
+
+  describe "#to_s" do
+    context "when the piece is of type NONE" do
+      subject(:piece_none) { described_class.create }
+      it "returns ' '" do
+        expect(piece_none.to_s).to eq(" ")
+      end
+    end
+
+    context "when the piece is a white king" do
+      subject(:white_king) { described_class.create(PieceType::KING, PieceColor::WHITE) }
+      it "returns ♔" do
+        expect(white_king.to_s).to eq("♔")
+      end
+    end
+
+    context "when the piece is a white queen" do
+      subject(:white_queen) { described_class.create(PieceType::QUEEN, PieceColor::WHITE) }
+      it "returns ♕" do
+        expect(white_king.to_s).to eq("♕")
+      end
+    end
+
+    context "when the piece is a white rook" do
+      subject(:white_rook) { described_class.create(PieceType::ROOK, PieceColor::WHITE) }
+      it "returns ♖" do
+        expect(white_rook.to_s).to eq("♖")
+      end
+    end
+
+    context "when the piece is a white bishop" do
+      subject(:white_bishop) { described_class.create(PieceType::BISHOP, PieceColor::WHITE) }
+      it "returns ♗" do
+        expect(white_bishop.to_s).to eq("♗")
+      end
+    end
+
+    context "when the piece is a white knight" do
+      subject(:white_knight) { described_class.create(PieceType::KNIGHT, PieceColor::WHITE) }
+      it "returns ♘" do
+        expect(white_knight.to_s).to eq("♘")
+      end
+    end
+
+    context "when the piece is a white pawn" do
+      subject(:white_pawn) { described_class.create(PieceType::PAWN, PieceColor::WHITE) }
+      it "returns ♙" do
+        expect(white_pawn.to_s).to eq("♙")
+      end
+    end
+  end
 end
