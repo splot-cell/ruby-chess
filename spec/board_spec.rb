@@ -19,5 +19,15 @@ describe Board do
         expect(board.instance_variable_get(:@data)).to all(be_a(Piece))
       end
     end
+
+    context "when data is passed in" do
+      let(:piece_class) { double("piece_class") }
+
+      it "does not create new Piece objects" do
+        data = [1, 2, 3]
+        expect(piece_class).not_to receive(:new)
+        described_class.new(data, piece_class)
+      end
+    end
   end
 end
