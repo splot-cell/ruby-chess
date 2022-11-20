@@ -2,6 +2,11 @@
 
 require_relative "piece.rb"
 
+# Module for interfacing between Forsyth-Edwards Notation (FEN) and classes
+
+# Overview for FEN here:
+# https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
+
 module FEN
   def piece_type_from(char)
     {
