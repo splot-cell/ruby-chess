@@ -34,6 +34,7 @@ describe Board do
   describe "#restore_position" do
     context "when the position contains only a white king in square a8" do
       let(:position1) { "K7/8/8/8/8/8/8/8 w - - 0 1" }
+
       it "populates @data[0] with a Piece of type KING" do
         expect { board.restore_position(position1) }.to change { board.instance_variable_get(:@data)[0] }.to be_a(King)
       end
@@ -64,6 +65,44 @@ describe Board do
       it "populates @data[44] with a Piece of type NONE" do
         board.restore_position(position1)
         expect(board.instance_variable_get(:@data)[44].type).to be(PieceType::NONE)
+      end
+    end
+
+    context "when the position contians a black knight on c4 and a white pawn on h1" do
+      let(:position2) { "8/8/8/8/2n5/8/8/7P b - - 2 5" }
+
+      it "populates @data[34] with a Knight" do
+        board.restore_position(position2)
+        expect(board.instance_variable_get(:@data)[34]).to be_a(Knight)
+      end
+
+      it "populates @data[34] with a Piece of color BLACK" do
+        expect { board.restore_position(position2) }.to change { board.instance_variable_get(:@data)[34].color }.to be(PieceColor::BLACK)
+      end
+
+      it "populates @data[63] with a Pawn" do
+        board.restore_position(position2)
+        expect(board.instance_variable_get(:@data)[63]).to be_a(Pawn)
+
+      end
+
+      it "populates @data[63] with a Piece of color WHITE" do
+        expect { board.restore_position(position2) }.to change { board.instance_variable_get(:@data)[63].color }.to be(PieceColor::WHITE)
+      end
+
+      it "populates @data[33] with a Piece of type NONE" do
+        board.restore_position(position2)
+        expect(board.instance_variable_get(:@data)[33].type).to be(PieceType::NONE)
+      end
+
+      it "populates @data[35] with a Piece of type NONE" do
+        board.restore_position(position2)
+        expect(board.instance_variable_get(:@data)[35].type).to be(PieceType::NONE)
+      end
+
+      it "populates @data[2] with a Piece of type NONE" do
+        board.restore_position(position2)
+        expect(board.instance_variable_get(:@data)[2].type).to be(PieceType::NONE)
       end
     end
   end
