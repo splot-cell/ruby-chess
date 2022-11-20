@@ -4,8 +4,8 @@ require_relative "../lib/board"
 require_relative "../lib/piece"
 
 describe Board do
+  subject(:board) { described_class.new }
   describe "#initialize" do
-    subject(:board) { described_class.new }
     context "when no arguments are given" do
       it "creates an array" do
         expect(board.instance_variable_get(:@data)).to be_an(Array)
@@ -52,15 +52,18 @@ describe Board do
       end
 
       it "populates @data[1] with a Piece of type NONE" do
-        expect { board.restore_position(position1) }.to change { board.instance_variable_get(:@data)[1].type }.to be(PieceType::None)
+        board.restore_position(position1)
+        expect(board.instance_variable_get(:@data)[1].type).to be(PieceType::NONE)
       end
 
       it "populates @data[63] with a Piece of type NONE" do
-        expect { board.restore_position(position1) }.to change { board.instance_variable_get(:@data)[63].type }.to be(PieceType::None)
+        board.restore_position(position1)
+        expect(board.instance_variable_get(:@data)[63].type).to be(PieceType::NONE)
       end
 
       it "populates @data[44] with a Piece of type NONE" do
-        expect { board.restore_position(position1) }.to change { board.instance_variable_get(:@data)[44].type }.to be(PieceType::None)
+        board.restore_position(position1)
+        expect(board.instance_variable_get(:@data)[44].type).to be(PieceType::NONE)
       end
     end
   end
