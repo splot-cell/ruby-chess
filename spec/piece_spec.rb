@@ -175,7 +175,7 @@ describe Piece do
     context "when the piece is a white queen" do
       subject(:white_queen) { described_class.create(PieceType::QUEEN, PieceColor::WHITE) }
       it "returns ♕" do
-        expect(white_king.to_s).to eq("♕")
+        expect(white_queen.to_s).to eq("♕")
       end
     end
 
