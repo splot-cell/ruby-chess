@@ -45,15 +45,4 @@ class Piece
   def self.type
     NONE
   end
-
-  def self.char_to_type(char)
-    {
-      "k" => KING,
-      "q" => QUEEN,
-      "r" => ROOK,
-      "b" => BISHOP,
-      "n" => KNIGHT,
-      "p" => PAWN
-    }[char.downcase]
-  end
 end

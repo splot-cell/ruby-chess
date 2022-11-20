@@ -1,34 +1,30 @@
 # frozen_string_literal: true
 
 require_relative "piece"
+require_relative "fen"
 
 class Board
+  include FEN
 
   def initialize(position = nil, piece_class = Piece)
     @data = position.nil? ? Array.new(64, piece_class.new) : position
   end
 
   def restore_position(fen_str)
-    pos = fen_str.split
-    piece_placement = pos[0]
-    active_color = pos[1]
-    castling = pos[2]
-    en_passant = pos[3]
-    half_move_clk = pos[4]
-    full_move_num = pos[5]
-    place_pieces(piece_placement)
+    position = position_hash(fen_str)
+    place_pieces(position[:piece_placement_data])
   end
 
-  def place_pieces(str)
+  def place_pieces(fen_str)
     @data.clear
-    str.split("").each do |char|
-      if char =~ /[kqrbnp]/i
-        color = char.match?(/[A-Z]/) ? PieceColor::WHITE : PieceColor::BLACK
-        @data << Piece.create(Piece.char_to_type(char), color)
-      elsif char =~ /[0-8]/
+    fen_str.split("").each do |char|
+      next if char == next_rank
+
+      if empty_square?(char)
         char.to_i.times { @data << Piece.create }
+      else
+        @data << Piece.create(piece_type_from(char), piece_color_from(char))
       end
     end
   end
-
 end
