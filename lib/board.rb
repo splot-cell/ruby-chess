@@ -12,22 +12,7 @@ class Board
 
   def restore_position(fen_str)
     position = position_hash(fen_str)
-    place_pieces(position[:piece_placement_data])
-  end
-
-  def place_pieces(fen_str)
-    @data.clear
-    fen_str.split("/").each do |r|
-      rank = []
-      r.split("").each do |char|
-        if empty_square?(char)
-          char.to_i.times { rank << Piece.create }
-        else
-          rank << Piece.create(piece_type_from(char), piece_color_from(char))
-        end
-      end
-      @data << rank
-    end
+    @data = piece_data_from(position[:piece_placement_data])
   end
 
   def within_bounds?(rank_index, file_index)

@@ -3,7 +3,6 @@
 require_relative "../piece"
 
 class Knight < Piece
-
   def self.type
     KNIGHT
   end

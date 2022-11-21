@@ -23,6 +23,27 @@ module FEN
     char.match?(/[A-Z]/) ? PieceColor::WHITE : PieceColor::BLACK
   end
 
+  def fen_char_from(piece)
+    {
+    PieceColor::BLACK => {
+      PieceType::KING => "k",
+      PieceType::QUEEN => "q",
+      PieceType::ROOK => "r",
+      PieceType::BISHOP => "b",
+      PieceType::KNIGHT => "n",
+      PieceType::PAWN => "p"
+    },
+    PieceColor::WHITE => {
+      PieceType::KING => "K",
+      PieceType::QUEEN => "Q",
+      PieceType::ROOK => "R",
+      PieceType::BISHOP => "B",
+      PieceType::KNIGHT => "N",
+      PieceType::PAWN => "P"
+    }
+    }[piece.color][piece.type]
+  end
+
   def position_hash(pos_str)
     pos_arr = pos_str.split
     {
@@ -41,5 +62,40 @@ module FEN
 
   def next_rank
     "/"
+  end
+
+  def piece_data_from(fen_str)
+    temp_data = []
+    fen_str.split("/").each do |r|
+      rank = []
+      r.split("").each do |char|
+        if empty_square?(char)
+          char.to_i.times { rank << Piece.create }
+        else
+          rank << Piece.create(piece_type_from(char), piece_color_from(char))
+        end
+      end
+      temp_data << rank
+    end
+    temp_data
+  end
+
+  def pos_to_fen
+    fen = ""
+    @data.each do |r|
+      empty_count = 0
+      r.each do |piece|
+        if piece.type == PieceType::NONE
+          empty_count += 1
+        else
+          fen += empty_count.to_s unless empty_count == 0
+          empty_count = 0
+          fen += fen_char_from(piece)
+        end
+      end
+      fen += empty_count.to_s unless empty_count == 0
+      fen += "/" unless r == @data.last
+    end
+    fen
   end
 end

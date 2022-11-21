@@ -3,7 +3,6 @@
 require_relative "../piece"
 
 class Bishop < Piece
-
   def self.type
     BISHOP
   end

@@ -152,4 +152,36 @@ describe Board do
       end
     end
   end
+
+  describe "#pos_to_fen" do
+    context "when the board has a white king on a8" do
+      let(:position1) { "K7/8/8/8/8/8/8/8 w - - 0 1" }
+
+      before do
+        board.restore_position(position1)
+      end
+
+      it "returns the correct FEN notation of the position" do
+        expect(board.pos_to_fen).to eq("K7/8/8/8/8/8/8/8")
+      end
+    end
+
+    context "when the board is in the default starting position" do
+      let(:position2) { "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" }
+
+      before do
+        board.restore_position(position2)
+      end
+
+      it "returns the correct FEN notation of the position" do
+        expect(board.pos_to_fen).to eq("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
+      end
+    end
+  end
+
+  describe "#make_move" do
+    context "when the board is in the starting position" do
+
+    end
+  end
 end
