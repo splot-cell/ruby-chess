@@ -27,4 +27,19 @@ class Board
       end
     end
   end
+
+  def to_s
+    str = ""
+    8.times do |rank|
+      str += (8 - rank).to_s
+      8.times do |file|
+        cell = rank * 8 + file
+        color = rank.even? ? (file.even? ? "" : "\e[40m") : (file.even? ? "\e[40m" : "")
+        str += "#{color} #{@data[cell].to_s} \e[0m"
+      end
+      str += "\n"
+    end
+    str += "  a  b  c  d  e  f  g  h"
+    str
+  end
 end
