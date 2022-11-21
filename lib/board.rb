@@ -30,6 +30,10 @@ class Board
     end
   end
 
+  def within_bounds?(rank_index, file_index)
+    rank_index.between?(0, 7) && file_index.between?(0, 7)
+  end
+
   def to_s
     str = ""
     8.times do |rank|
