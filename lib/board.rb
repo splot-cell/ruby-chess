@@ -19,6 +19,15 @@ class Board
     rank_index.between?(0, 7) && file_index.between?(0, 7)
   end
 
+  def make_move(move)
+    move.each do |sub_move|
+      starting_pos = sub_move[0]
+      ending_pos = sub_move[1]
+      @data[ending_pos[0]][ending_pos[1]] = @data[starting_pos[0]][starting_pos[1]]
+      @data[starting_pos[0]][starting_pos[1]] = Piece.create
+    end
+  end
+
   def to_s
     str = ""
     8.times do |rank|

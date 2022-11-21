@@ -181,7 +181,37 @@ describe Board do
 
   describe "#make_move" do
     context "when the board is in the starting position" do
+      let(:position) { "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" }
 
+      before do
+        board.restore_position(position)
+      end
+
+      context "when the move calls for a pawn push to e4" do
+        let(:move1) { [[[6, 4], [4, 4]]] }
+
+        it "moves the pawn" do
+          expected_position = "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR"
+          expect { board.make_move(move1) }.to change { board.pos_to_fen }.to eq(expected_position)
+        end
+      end
+    end
+
+    context "when the board is in a position afteer 1. e4" do
+      let(:position2) { "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1" }
+
+      before do
+        board.restore_position(position2)
+      end
+
+      context "when the move calls for a pawn push to c5" do
+        let(:move2) { [[[1, 2], [3, 2]]] }
+
+        it "moves the pawn" do
+          expected_position = "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR"
+          expect { board.make_move(move2) }.to change { board.pos_to_fen }.to eq(expected_position)
+        end
+      end
     end
   end
 end
