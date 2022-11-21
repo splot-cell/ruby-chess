@@ -197,7 +197,7 @@ describe Board do
       end
     end
 
-    context "when the board is in a position afteer 1. e4" do
+    context "when the board is in a position after 1. e4" do
       let(:position2) { "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1" }
 
       before do
@@ -210,6 +210,57 @@ describe Board do
         it "moves the pawn" do
           expected_position = "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR"
           expect { board.make_move(move2) }.to change { board.pos_to_fen }.to eq(expected_position)
+        end
+      end
+    end
+
+    context "when the next move could be a white queenside castle" do
+      let(:position3) { "r1b1kbnr/ppp1q1pp/2np1p2/4p3/3P4/2N1B3/PPPQPPPP/R3KBNR b KQkq - 0 1" }
+
+      before do
+        board.restore_position(position3)
+      end
+
+      context "when the move calls for a white queenside castle" do
+        let(:move3) { [[[7, 4], [7, 2]], [[7, 0], [7, 3]]] }
+
+        it "castles queenside" do
+          expected_position = "r1b1kbnr/ppp1q1pp/2np1p2/4p3/3P4/2N1B3/PPPQPPPP/2KR1BNR"
+          expect { board.make_move(move3) }.to change { board.pos_to_fen }.to eq(expected_position)
+        end
+      end
+    end
+
+    context "when the position allows black to capture next move" do
+      let(:position4) { "r1b1kbnr/ppp1q1pp/2np1p2/4p3/3P4/2N1B3/PPPQPPPP/2KR1BNR w kq - 0 1" }
+
+      before do
+        board.restore_position(position4)
+      end
+
+      context "when the move calls for a black pawn capture" do
+        let(:move4) { [[[3, 4], [4, 3]]] }
+
+        it "captures" do
+          expected_position = "r1b1kbnr/ppp1q1pp/2np1p2/8/3p4/2N1B3/PPPQPPPP/2KR1BNR"
+          expect { board.make_move(move4) }.to change { board.pos_to_fen }.to eq(expected_position)
+        end
+      end
+    end
+
+    context "when the position allows to enact en passant" do
+      let(:position5) { "r1b1kbnr/ppp1q1pp/2np4/4p3/N2P1pP1/2Q1B3/PPP1PP1P/2KR1BNR b kq g3 0 1" }
+
+      before do
+        board.restore_position(position5)
+      end
+
+      context "when the move calls for a black pawn capture" do
+        let(:move5) { [[[4, 6], [5, 6]], [[4, 5], [5, 6]]] }
+
+        it "captures" do
+          expected_position = "r1b1kbnr/ppp1q1pp/2np4/4p3/N2P4/2Q1B1p1/PPP1PP1P/2KR1BNR"
+          expect { board.make_move(move5) }.to change { board.pos_to_fen }.to eq(expected_position)
         end
       end
     end
