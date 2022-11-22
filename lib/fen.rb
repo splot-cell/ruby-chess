@@ -84,7 +84,7 @@ module FEN
       rank = []
       r.split("").each do |char|
         if empty_square?(char)
-          char.to_i.times { rank << Piece.create }
+          char.to_i.times { rank << nil }
         else
           rank << Piece.create(piece_type_from(char), piece_color_from(char))
         end
@@ -99,16 +99,16 @@ module FEN
     @data.each do |r|
       empty_count = 0
       r.each do |piece|
-        if piece.type == PieceType::NONE
+        if piece.nil?
           empty_count += 1
         else
-          fen += empty_count.to_s unless empty_count == 0
+          fen += empty_count.to_s unless empty_count.zero?
           empty_count = 0
           fen += fen_char_from(piece)
         end
       end
-      fen += empty_count.to_s unless empty_count == 0
-      fen += "/" unless r == @data.last
+      fen += empty_count.to_s unless empty_count.zero?
+      fen += "/" unless r.equal?(@data.last)
     end
     fen
   end

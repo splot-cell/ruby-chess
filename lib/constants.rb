@@ -7,7 +7,6 @@ module PieceType
   BISHOP = 3
   KNIGHT = 4
   PAWN = 5
-  NONE = 6
 end
 
 module Color

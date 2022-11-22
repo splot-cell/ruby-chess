@@ -10,27 +10,15 @@ require_relative "../lib/pieces/king"
 
 describe Piece do
   describe "#self.create" do
-    context "when no type is given" do
-      it "returns a Piece object" do
-        expect(Piece.create).to be_a(Piece)
-      end
-
-      it "returns a Piece object of type NONE" do
-        expect(Piece.create.type).to eq(PieceType::NONE)
-      end
-
-      it "returns a Piece object of color nil" do
-        expect(Piece.create.color).to be(nil)
-      end
-    end
+    let(:color) { double("color") }
 
     context "when type is PAWN" do
       it "returns an object of type Pawn" do
-        expect(Piece.create(PieceType::PAWN)).to be_a(Pawn)
+        expect(Piece.create(PieceType::PAWN, color)).to be_a(Pawn)
       end
 
       it "returns a Piece object with type PAWN" do
-        expect(Piece.create(PieceType::PAWN).type).to eq(PieceType::PAWN)
+        expect(Piece.create(PieceType::PAWN, color).type).to eq(PieceType::PAWN)
       end
 
       context "when the color is WHITE" do
@@ -48,11 +36,11 @@ describe Piece do
 
     context "when type is KNIGHT" do
       it "returns an object of type Knight" do
-        expect(Piece.create(PieceType::KNIGHT)).to be_a(Knight)
+        expect(Piece.create(PieceType::KNIGHT, color)).to be_a(Knight)
       end
 
       it "returns a Piece object with type KNIGHT" do
-        expect(Piece.create(PieceType::KNIGHT).type).to eq(PieceType::KNIGHT)
+        expect(Piece.create(PieceType::KNIGHT, color).type).to eq(PieceType::KNIGHT)
       end
 
       context "when the color is WHITE" do
@@ -70,11 +58,11 @@ describe Piece do
 
     context "when type is BISHOP" do
       it "returns an object of type Bishop" do
-        expect(Piece.create(PieceType::BISHOP)).to be_a(Bishop)
+        expect(Piece.create(PieceType::BISHOP, color)).to be_a(Bishop)
       end
 
       it "returns a Piece object with type BISHOP" do
-        expect(Piece.create(PieceType::BISHOP).type).to eq(PieceType::BISHOP)
+        expect(Piece.create(PieceType::BISHOP, color).type).to eq(PieceType::BISHOP)
       end
 
       context "when the color is WHITE" do
@@ -92,11 +80,11 @@ describe Piece do
 
     context "when type is ROOK" do
       it "returns an object of type Rook" do
-        expect(Piece.create(PieceType::ROOK)).to be_a(Rook)
+        expect(Piece.create(PieceType::ROOK, color)).to be_a(Rook)
       end
 
       it "returns a Piece object with type ROOK" do
-        expect(Piece.create(PieceType::ROOK).type).to eq(PieceType::ROOK)
+        expect(Piece.create(PieceType::ROOK, color).type).to eq(PieceType::ROOK)
       end
 
       context "when the color is WHITE" do
@@ -114,11 +102,11 @@ describe Piece do
 
     context "when type is QUEEN" do
       it "returns an object of type Queen" do
-        expect(Piece.create(PieceType::QUEEN)).to be_a(Queen)
+        expect(Piece.create(PieceType::QUEEN, color)).to be_a(Queen)
       end
 
       it "returns a Piece object with type QUEEN" do
-        expect(Piece.create(PieceType::QUEEN).type).to eq(PieceType::QUEEN)
+        expect(Piece.create(PieceType::QUEEN, color).type).to eq(PieceType::QUEEN)
       end
 
       context "when the color is WHITE" do
@@ -136,11 +124,11 @@ describe Piece do
 
     context "when type is KING" do
       it "returns an object of type King" do
-        expect(Piece.create(PieceType::KING)).to be_a(King)
+        expect(Piece.create(PieceType::KING, color)).to be_a(King)
       end
 
       it "returns a Piece object with type KING" do
-        expect(Piece.create(PieceType::KING).type).to eq(PieceType::KING)
+        expect(Piece.create(PieceType::KING, color).type).to eq(PieceType::KING)
       end
 
       context "when the color is WHITE" do
@@ -158,13 +146,6 @@ describe Piece do
   end
 
   describe "#to_s" do
-    context "when the piece is of type NONE" do
-      subject(:piece_none) { described_class.create }
-      it "returns ' '" do
-        expect(piece_none.to_s).to eq(" ")
-      end
-    end
-
     context "when the piece is a white king" do
       subject(:white_king) { described_class.create(PieceType::KING, Color::WHITE) }
       it "returns ♔" do

@@ -6,8 +6,8 @@ require_relative "fen"
 class Board
   include FEN
 
-  def initialize(piece_class = Piece)
-    @data = Array.new(8) { Array.new(8, piece_class.new) }
+  def initialize(data = Array.new(8) { Array.new(8) })
+    @data = data
     @current_player = Color::WHITE
     @castling_avail = "KQkq"
     @en_passant_target = nil
@@ -29,12 +29,50 @@ class Board
     rank_index.between?(0, 7) && file_index.between?(0, 7)
   end
 
+
+  # validate_move(move)
+  # check if en passant if necessary
+  # check if castling if necessary
+  # create version of board with new position and query in_check
+
+  # game_over?
+  # after generating move pool, there are zero valid moves
+  # if one color is in check -> mate
+  # if not -> stalemate
+
+  # update_state(move)
+  # calls make_move if valid
+  # update half move clk if necessary
+  # update full move num if necessary
+  # update en passant target if necessary
+  # update castlign if necessary
+  # call toggle_current_player
+
+  # sq under attack?(sq, color)
+  # checks if any of the pieces of color are attacking sq
+
+  # in_check(color)
+  # checks if the King of color is under attack?
+
+  # generate move_pool
+  # for each piece, try all its direction vectors and add move to pool
+  # if pawn, also try attacking direction vectors
+  # depending on castling state, check to see if castling squares are open, if so, add move to move pool
+  # validate each move in move pool does not leave you in check
+
+  # move class
+  # co ordinates from one pos to next
+  # castling bool
+  # en passant bool
+  # promotion bool
+
+
   def make_move(move)
     move.each do |sub_move|
       starting_pos = sub_move[0]
       ending_pos = sub_move[1]
       @data[ending_pos[0]][ending_pos[1]] = @data[starting_pos[0]][starting_pos[1]]
-      @data[starting_pos[0]][starting_pos[1]] = Piece.create
+      @data[starting_pos[0]][starting_pos[1]] = nil
     end
   end
 
@@ -44,8 +82,10 @@ class Board
       str += (8 - rank).to_s
       8.times do |file|
         cell = rank * 8 + file
-        color = rank.even? ? (file.even? ? "" : "\e[40m") : (file.even? ? "\e[40m" : "")
-        str += "#{color} #{@data[cell].to_s} \e[0m"
+        color = (rank + file).even ? "\e[40m" : ""
+        piece = @data[cell]
+        piece_str = piece ? piece.to_s : " "
+        str += "#{color} #{piece_str} \e[0m"
       end
       str += "\n"
     end
