@@ -217,7 +217,7 @@ describe Board do
     end
   end
 
-  describe "#make_move" do
+  describe "#translate_squares" do
     context "when the board is in the starting position" do
       let(:position) { "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" }
 
@@ -230,7 +230,7 @@ describe Board do
 
         it "moves the pawn" do
           expected_position = "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR"
-          expect { board.make_move(move) }.to change { board.encode_fen_position }.to eq(expected_position)
+          expect { board.translate_squares(move) }.to change { board.encode_fen_position }.to eq(expected_position)
         end
       end
     end
@@ -247,7 +247,7 @@ describe Board do
 
         it "moves the pawn" do
           expected_position = "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR"
-          expect { board.make_move(move) }.to change { board.encode_fen_position }.to eq(expected_position)
+          expect { board.translate_squares(move) }.to change { board.encode_fen_position }.to eq(expected_position)
         end
       end
     end
@@ -264,7 +264,7 @@ describe Board do
 
         it "castles queenside" do
           expected_position = "r1b1kbnr/ppp1q1pp/2np1p2/4p3/3P4/2N1B3/PPPQPPPP/2KR1BNR"
-          expect { board.make_move(move) }.to change { board.encode_fen_position }.to eq(expected_position)
+          expect { board.translate_squares(move) }.to change { board.encode_fen_position }.to eq(expected_position)
         end
       end
     end
@@ -281,7 +281,7 @@ describe Board do
 
         it "captures with the pawn" do
           expected_position = "r1b1kbnr/ppp1q1pp/2np1p2/8/3p4/2N1B3/PPPQPPPP/2KR1BNR"
-          expect { board.make_move(move) }.to change { board.encode_fen_position }.to eq(expected_position)
+          expect { board.translate_squares(move) }.to change { board.encode_fen_position }.to eq(expected_position)
         end
       end
     end
@@ -298,7 +298,7 @@ describe Board do
 
         it "captures with the pawn" do
           expected_position = "r1b1kbnr/ppp1q1pp/2np4/4p3/N2P4/2Q1B1p1/PPP1PP1P/2KR1BNR"
-          expect { board.make_move(move) }.to change { board.encode_fen_position }.to eq(expected_position)
+          expect { board.translate_squares(move) }.to change { board.encode_fen_position }.to eq(expected_position)
         end
       end
     end

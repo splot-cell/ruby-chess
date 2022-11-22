@@ -67,10 +67,10 @@ class Board
   # promotion bool
 
 
-  def make_move(move)
-    move.each do |sub_move|
-      starting_pos = sub_move[0]
-      ending_pos = sub_move[1]
+  def translate_squares(translations)
+    translations.each do |translation|
+      starting_pos = translation[0]
+      ending_pos = translation[1]
       @data[ending_pos[0]][ending_pos[1]] = @data[starting_pos[0]][starting_pos[1]]
       @data[starting_pos[0]][starting_pos[1]] = nil
     end
