@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "piece.rb"
+require_relative "piece"
+require_relative "constants"
 
 # Module for interfacing between Forsyth-Edwards Notation (FEN) and classes
 
@@ -20,12 +21,12 @@ module FEN
   end
 
   def piece_color_from(char)
-    char.match?(/[A-Z]/) ? PieceColor::WHITE : PieceColor::BLACK
+    char.match?(/[A-Z]/) ? Color::WHITE : Color::BLACK
   end
 
   def fen_char_from(piece)
     {
-    PieceColor::BLACK => {
+    Color::BLACK => {
       PieceType::KING => "k",
       PieceType::QUEEN => "q",
       PieceType::ROOK => "r",
@@ -33,7 +34,7 @@ module FEN
       PieceType::KNIGHT => "n",
       PieceType::PAWN => "p"
     },
-    PieceColor::WHITE => {
+    Color::WHITE => {
       PieceType::KING => "K",
       PieceType::QUEEN => "Q",
       PieceType::ROOK => "R",

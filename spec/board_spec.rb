@@ -42,7 +42,7 @@ describe Board do
       end
 
       it "populates @data[0][0] with a Piece of color WHITE" do
-        expect { board.restore_position(position1) }.to change { board.instance_variable_get(:@data)[0][0].color }.to be(PieceColor::WHITE)
+        expect { board.restore_position(position1) }.to change { board.instance_variable_get(:@data)[0][0].color }.to be(Color::WHITE)
       end
 
       it "populates @data with 64 objects" do
@@ -79,7 +79,7 @@ describe Board do
       end
 
       it "populates @data[4][2] with a Piece of color BLACK" do
-        expect { board.restore_position(position2) }.to change { board.instance_variable_get(:@data)[4][2].color }.to be(PieceColor::BLACK)
+        expect { board.restore_position(position2) }.to change { board.instance_variable_get(:@data)[4][2].color }.to be(Color::BLACK)
       end
 
       it "populates @data[7][7] with a Pawn" do
@@ -89,7 +89,7 @@ describe Board do
       end
 
       it "populates @data[7][7] with a Piece of color WHITE" do
-        expect { board.restore_position(position2) }.to change { board.instance_variable_get(:@data)[7][7].color }.to be(PieceColor::WHITE)
+        expect { board.restore_position(position2) }.to change { board.instance_variable_get(:@data)[7][7].color }.to be(Color::WHITE)
       end
 
       it "populates @data[4][1] with a Piece of type NONE" do
@@ -105,6 +105,13 @@ describe Board do
       it "populates @data[0][2] with a Piece of type NONE" do
         board.restore_position(position2)
         expect(board.instance_variable_get(:@data)[0][2].type).to be(PieceType::NONE)
+      end
+    end
+
+    context "when the it is black's turn to move" do
+      let(:position3) { "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1" }
+
+      it "sets @current_player to black" do
       end
     end
   end
