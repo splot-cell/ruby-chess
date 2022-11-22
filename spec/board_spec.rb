@@ -252,7 +252,7 @@ describe Board do
       end
     end
 
-    context "when the next move could be a white queenside castle" do
+    context "when the position allows a white queenside castle" do
       let(:position) { "r1b1kbnr/ppp1q1pp/2np1p2/4p3/3P4/2N1B3/PPPQPPPP/R3KBNR b KQkq - 0 1" }
 
       before do
@@ -276,27 +276,27 @@ describe Board do
         board.restore_position(position)
       end
 
-      context "when the move calls for a black pawn capture" do
+      context "when the move calls for black to capture with a pawn" do
         let(:move) { [[[3, 4], [4, 3]]] }
 
-        it "captures" do
+        it "captures with the pawn" do
           expected_position = "r1b1kbnr/ppp1q1pp/2np1p2/8/3p4/2N1B3/PPPQPPPP/2KR1BNR"
           expect { board.make_move(move) }.to change { board.pos_to_fen }.to eq(expected_position)
         end
       end
     end
 
-    context "when the position allows to enact en passant" do
+    context "when the position allows en passant" do
       let(:position) { "r1b1kbnr/ppp1q1pp/2np4/4p3/N2P1pP1/2Q1B3/PPP1PP1P/2KR1BNR b kq g3 0 1" }
 
       before do
         board.restore_position(position)
       end
 
-      context "when the move calls for a black pawn capture" do
+      context "when the move calls for black to captue with a pawn" do
         let(:move) { [[[4, 6], [5, 6]], [[4, 5], [5, 6]]] }
 
-        it "captures" do
+        it "captures with the pawn" do
           expected_position = "r1b1kbnr/ppp1q1pp/2np4/4p3/N2P4/2Q1B1p1/PPP1PP1P/2KR1BNR"
           expect { board.make_move(move) }.to change { board.pos_to_fen }.to eq(expected_position)
         end
