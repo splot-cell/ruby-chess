@@ -9,12 +9,20 @@ class Board
   def initialize(piece_class = Piece)
     @data = Array.new(8) { Array.new(8, piece_class.new) }
     @current_player = Color::WHITE
+    @castling_avail = "KQkq"
+    @en_passant_target = nil
+    @half_move_clk = 0
+    @full_move_num = 1
   end
 
   def restore_position(fen_str)
     position = position_hash(fen_str)
     @data = piece_data_from(position[:piece_placement_data])
     @current_player = current_player_from(position[:active_color])
+    @castling_avail = position[:castling_avail]
+    @en_passant_target = en_passant_target_from(position[:en_passant_target])
+    @half_move_clk = position[:half_move_clk].to_i
+    @full_move_num = position[:full_move_num].to_i
   end
 
   def within_bounds?(rank_index, file_index)

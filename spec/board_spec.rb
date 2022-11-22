@@ -108,12 +108,33 @@ describe Board do
       end
     end
 
-    context "when the it is black's turn to move" do
-      let(:position3) { "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1" }
+    context "when it is black's turn to move" do
+      context "when the en passant target is e3" do
+        context "when the half move clock is 49" do
+          context "when the full move number is 3" do
+            let(:position3) { "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 49 3" }
 
-      it "sets @current_player to black" do
-        board.restore_position(position3)
-        expect(board.instance_variable_get(:@current_player)).to be(Color::BLACK)
+            before do
+              board.restore_position(position3)
+            end
+
+            it "sets @current_player to black" do
+              expect(board.instance_variable_get(:@current_player)).to be(Color::BLACK)
+            end
+
+            it "sets @en_passent_target to [5, 4]" do
+              expect(board.instance_variable_get(:@en_passant_target)).to eq([5, 4])
+            end
+
+            it "sets half move clock to 49" do
+              expect(board.instance_variable_get(:@half_move_clk)).to eq(49)
+            end
+
+            it "sets full move number to 3" do
+              expect(board.instance_variable_get(:@full_move_num)).to eq(3)
+            end
+          end
+        end
       end
     end
   end

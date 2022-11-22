@@ -2,6 +2,7 @@
 
 require_relative "piece"
 require_relative "constants"
+require_relative "coordinates"
 
 # Module for interfacing between Forsyth-Edwards Notation (FEN) and classes
 
@@ -9,6 +10,8 @@ require_relative "constants"
 # https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
 
 module FEN
+  include Coordinates
+
   def piece_type_from(char)
     {
       "k" => PieceType::KING,
@@ -67,6 +70,12 @@ module FEN
 
   def current_player_from(fen_str)
     fen_str == "w" ? Color::WHITE : Color::BLACK
+  end
+
+  def en_passant_target_from(str)
+    return if str == "-"
+
+    algebraic_sq_to_xy(str)
   end
 
   def piece_data_from(fen_str)
