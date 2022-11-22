@@ -8,11 +8,13 @@ class Board
 
   def initialize(piece_class = Piece)
     @data = Array.new(8) { Array.new(8, piece_class.new) }
+    @current_player = Color::WHITE
   end
 
   def restore_position(fen_str)
     position = position_hash(fen_str)
     @data = piece_data_from(position[:piece_placement_data])
+    @current_player = current_player_from(position[:active_color])
   end
 
   def within_bounds?(rank_index, file_index)

@@ -65,6 +65,10 @@ module FEN
     "/"
   end
 
+  def current_player_from(fen_str)
+    fen_str == "w" ? Color::WHITE : Color::BLACK
+  end
+
   def piece_data_from(fen_str)
     temp_data = []
     fen_str.split("/").each do |r|

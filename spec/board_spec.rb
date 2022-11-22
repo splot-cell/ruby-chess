@@ -112,6 +112,8 @@ describe Board do
       let(:position3) { "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1" }
 
       it "sets @current_player to black" do
+        board.restore_position(position3)
+        expect(board.instance_variable_get(:@current_player)).to be(Color::BLACK)
       end
     end
   end
