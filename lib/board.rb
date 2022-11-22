@@ -16,13 +16,13 @@ class Board
   end
 
   def restore_position(fen_str)
-    position = position_hash(fen_str)
-    @data = piece_data_from(position[:piece_placement_data])
-    @current_player = current_player_from(position[:active_color])
+    position = decode_game_state(fen_str)
+    @data = position[:piece_placement_data]
+    @current_player = position[:active_color]
     @castling_avail = position[:castling_avail]
-    @en_passant_target = en_passant_target_from(position[:en_passant_target])
-    @half_move_clk = position[:half_move_clk].to_i
-    @full_move_num = position[:full_move_num].to_i
+    @en_passant_target = position[:en_passant_target]
+    @half_move_clk = position[:half_move_clk]
+    @full_move_num = position[:full_move_num]
   end
 
   def within_bounds?(rank_index, file_index)
