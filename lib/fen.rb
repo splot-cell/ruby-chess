@@ -29,22 +29,22 @@ module FEN
 
   def fen_char_from(piece)
     {
-    Color::BLACK => {
-      PieceType::KING => "k",
-      PieceType::QUEEN => "q",
-      PieceType::ROOK => "r",
-      PieceType::BISHOP => "b",
-      PieceType::KNIGHT => "n",
-      PieceType::PAWN => "p"
-    },
-    Color::WHITE => {
-      PieceType::KING => "K",
-      PieceType::QUEEN => "Q",
-      PieceType::ROOK => "R",
-      PieceType::BISHOP => "B",
-      PieceType::KNIGHT => "N",
-      PieceType::PAWN => "P"
-    }
+      Color::BLACK => {
+        PieceType::KING => "k",
+        PieceType::QUEEN => "q",
+        PieceType::ROOK => "r",
+        PieceType::BISHOP => "b",
+        PieceType::KNIGHT => "n",
+        PieceType::PAWN => "p"
+      },
+      Color::WHITE => {
+        PieceType::KING => "K",
+        PieceType::QUEEN => "Q",
+        PieceType::ROOK => "R",
+        PieceType::BISHOP => "B",
+        PieceType::KNIGHT => "N",
+        PieceType::PAWN => "P"
+      }
     }[piece.color][piece.type]
   end
 
