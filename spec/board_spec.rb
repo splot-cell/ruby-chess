@@ -181,10 +181,10 @@ describe Board do
 
   describe "#make_move" do
     context "when the board is in the starting position" do
-      let(:position) { "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" }
+      let(:position1) { "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" }
 
       before do
-        board.restore_position(position)
+        board.restore_position(position1)
       end
 
       context "when the move calls for a pawn push to e4" do
