@@ -6,6 +6,8 @@ require_relative "fen"
 class Board
   include FEN
 
+  attr_reader :en_passant_target, :current_player
+
   def initialize(data = Array.new(8) { Array.new(8) })
     @data = data
     @current_player = Color::WHITE
@@ -29,6 +31,10 @@ class Board
     rank_index.between?(0, 7) && file_index.between?(0, 7)
   end
 
+  # castling_valid?(rook_square)
+  # checks if squares between rook and king are free
+  # checks if castling_avail
+
   # game_over?
   # after generating move pool, there are zero valid moves
   # if one color is in check -> mate
@@ -45,7 +51,7 @@ class Board
   # sq under attack?(sq, color)
   # checks if any of the pieces of color are attacking sq
 
-  # in_check(color)
+  # in_check?(color)
   # checks if the King of color is under attack?
 
   # generate move_pool(color)

@@ -2,21 +2,33 @@
 
 class Move
 
-# @en_passant
-# @castle
-# @promotion
-# @translation_list
+  attr_accessor :en_passant, :castle, :promotion, :translation_list
 
-# #basic?
 # checks whether it's a basic or complex move...
+  def basic?
+    en_passant || castle || promotion
+  end
 
-# execute(board)
 # calls board.translate_squares(@translation_list)
+  def execute(board)
+    board.translate_squares(translation_list)
+  end
 
-# valid?(board)
 # checks whether move is valid on board
-  # check if en passant if necessary
-  # check if castling if necessary
+  # check if en passant valid if necessary
+  # check if castling valid if necessary
   # create version of board with new position and query in_check
+  def valid?(board)
+    return false if en_passant && board.en_passant_target != translation_list[0][1]
+
+    return false if castle && board.castling_valid?(translation_list[1][0])
+
+    current_state = board.encode_fen_position
+    self.execute(board)
+    ret = board.in_check?(board.current_player)
+    board.restore_position(current_state)
+
+    ret
+  end
 
 end
