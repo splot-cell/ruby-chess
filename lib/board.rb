@@ -29,19 +29,13 @@ class Board
     rank_index.between?(0, 7) && file_index.between?(0, 7)
   end
 
-
-  # validate_move(move)
-  # check if en passant if necessary
-  # check if castling if necessary
-  # create version of board with new position and query in_check
-
   # game_over?
   # after generating move pool, there are zero valid moves
   # if one color is in check -> mate
   # if not -> stalemate
 
   # update_state(move)
-  # calls make_move if valid
+  # checks move.valid?(self)
   # update half move clk if necessary
   # update full move num if necessary
   # update en passant target if necessary
@@ -54,18 +48,11 @@ class Board
   # in_check(color)
   # checks if the King of color is under attack?
 
-  # generate move_pool
+  # generate move_pool(color)
   # for each piece, try all its direction vectors and add move to pool
   # if pawn, also try attacking direction vectors
   # depending on castling state, check to see if castling squares are open, if so, add move to move pool
   # validate each move in move pool does not leave you in check
-
-  # move class
-  # co ordinates from one pos to next
-  # castling bool
-  # en passant bool
-  # promotion bool
-
 
   def translate_squares(translations)
     translations.each do |translation|
