@@ -32,7 +32,7 @@ class Board
   end
 
   def toggle_current_player
-    @current_player = @current_player == Color::WHITE ? Color::BLACK : Color::WHITE
+    @current_player = opponent_color(@current_player)
   end
 
   def remove_castling_avail(move)
@@ -93,6 +93,18 @@ class Board
 
   # in_check?(color)
   # checks if the King of color is under attack?
+  def in_check?(color)
+    sq_under_attack?(find_piece_coor(PieceType::KING, color), opponent_color(color))
+  end
+
+  def find_piece_coor(type, color)
+    @data.each_index do |rank_i|
+      @data[rank_i].each_index do |file_i|
+        return [rank_i, file_i] if @data[rank_i][file_i].type == type && @data[rank_i][file_i].color == color
+      end
+    end
+    nil
+  end
 
   # generate move_pool(color)
   # for each piece, try all its direction vectors and add move to pool
@@ -139,5 +151,9 @@ class Board
 
   def square_empty?(square)
     @data[square].nil?
+  end
+
+  def opponent_color(color)
+    color == Color::WHITE ? Color::BLACK : Color::WHITE
   end
 end
