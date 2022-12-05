@@ -127,6 +127,14 @@ class Board
   end
 
   def squares_between(sq1, sq2)
+    ret = []
+    current_sq = sq1
+    until current_sq == sq2
+      (current_sq[0] = current_sq[0] < sq2[0] ? current_sq[0] + 1 : current_sq[0] - 1) unless current_sq[0] == sq2[0]
+      (current_sq[1] = current_sq[1] < sq2[1] ? current_sq[1] + 1 : current_sq[1] - 1) unless current_sq[1] == sq2[1]
+      ret << current_sq
+    end
+    ret
   end
 
   def square_empty?(square)
