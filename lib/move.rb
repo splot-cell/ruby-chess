@@ -1,16 +1,34 @@
 # frozen_string_literal: true
 
-class Move
+require_relative "constants"
 
-  attr_accessor :en_passant, :castle, :promotion, :translation_list
+class Move
+  include PieceType
+
+  attr_accessor :en_passant, :castle, :promotion, :translation_list, :pawn_double_push, :piece
 
 # checks whether it's a basic or complex move...
   def basic?
-    en_passant || castle || promotion
+    !(en_passant || castle || promotion)
+  end
+
+  # update half move clk if necessary
+  # update full move num if necessary
+  # update en passant target if necessary
+  # update castlign if necessary
+  # call toggle_current_player
+  def update_board_state(board)
+    board.en_passant_target = pawn_double_push ? self.en_passant_target : nil
+
+    board.remove_castling_avail(self) if piece.type == KING || piece.type == ROOK
+
+    board.toggle_current_player
   end
 
 # calls board.translate_squares(@translation_list)
   def execute(board)
+    update_board_state(board)
+
     board.translate_squares(translation_list)
   end
 
@@ -29,6 +47,10 @@ class Move
     board.restore_position(current_state)
 
     ret
+  end
+
+  def en_passant_target
+    translation_list[0].reduce { |av, v| [(av[0] + v[0]) / 2, (av[1] + v[1]) / 2] }
   end
 
 end

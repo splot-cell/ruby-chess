@@ -31,22 +31,38 @@ class Board
     rank_index.between?(0, 7) && file_index.between?(0, 7)
   end
 
+  def toggle_current_player
+    @current_player = @current_player == Color::WHITE ? Color::BLACK : Color::WHITE
+  end
+
+  def remove_castling_avail(move)
+    if move.piece.type == Type::KING
+      return @castling_avail.delete!("KQ") if move.piece.color == Color::WHITE
+
+      @castling_avail.delete!("kq")
+    else
+      case move.translation_list[0][0]
+      when [0, 0]
+        @castling_avail.delete!("q")
+      when [0, 7]
+        @castling_avail.delete!("k")
+      when [7, 0]
+        @castling_avail.delete!("Q")
+      when [7, 7]
+        @castling_avail.delete!("K")
+      end
+    end
+  end
+
   # castling_valid?(rook_square)
-  # checks if squares between rook and king are free
   # checks if castling_avail
+  # checks if squares between rook and king are free
+  # checks if squares are under attack
 
   # game_over?
   # after generating move pool, there are zero valid moves
   # if one color is in check -> mate
   # if not -> stalemate
-
-  # update_state(move)
-  # checks move.valid?(self)
-  # update half move clk if necessary
-  # update full move num if necessary
-  # update en passant target if necessary
-  # update castlign if necessary
-  # call toggle_current_player
 
   # sq under attack?(sq, color)
   # checks if any of the pieces of color are attacking sq
