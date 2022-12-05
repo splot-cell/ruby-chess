@@ -58,6 +58,30 @@ class Board
   # checks if castling_avail
   # checks if squares between rook and king are free
   # checks if squares are under attack
+  def castling_valid?(rook_square)
+    black_king_square = [0, 4]
+    white_king_square = [7, 4]
+
+    case rook_square
+    when [0, 0]
+      return false unless @castling_avail.contains?("q")
+
+      return false unless squares_between(rook_square, black_king_square).all? { |sq| square_empty?(sq)  && !sq_under_attack?(sq) }
+    when [0, 7]
+      return false unless @castling_avail.contains?("k")
+
+      return false unless squares_between(rook_square, black_king_square).all? { |sq| square_empty?(sq)  && !sq_under_attack?(sq) }
+    when [7, 0]
+      return false unless @castling_avail.contains?("Q")
+
+      return false unless squares_between(rook_square, white_king_square).all? { |sq| square_empty?(sq)  && !sq_under_attack?(sq) }
+    when [7, 7]
+      return false unless @castling_avail.contains?("K")
+
+      return false unless squares_between(rook_square, white_king_square).all? { |sq| square_empty?(sq) && !sq_under_attack?(sq) }
+    end
+    true
+  end
 
   # game_over?
   # after generating move pool, there are zero valid moves
@@ -100,5 +124,12 @@ class Board
     end
     str += "  a  b  c  d  e  f  g  h"
     str
+  end
+
+  def squares_between(sq1, sq2)
+  end
+
+  def square_empty?(square)
+    @data[square].nil?
   end
 end
