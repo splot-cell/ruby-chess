@@ -76,13 +76,13 @@ module FEN
 
   def decode_fen_position(fen_str)
     temp_data = []
-    fen_str.split(next_rank).each do |r|
+    fen_str.split(next_rank).each_with_index do |r, i|
       rank = []
-      r.split("").each do |char|
+      r.split("").each_with_index do |char, j|
         if empty_square?(char)
           char.to_i.times { rank << nil }
         else
-          rank << Piece.create(decode_fen_type(char), decode_fen_color(char))
+          rank << Piece.create(decode_fen_type(char), decode_fen_color(char), [i, j])
         end
       end
       temp_data << rank

@@ -90,6 +90,13 @@ class Board
 
   # sq under attack?(sq, color)
   # checks if any of the pieces of color are attacking sq
+  def sq_under_attack?(sq, color)
+    @data.flatten.each do |piece|
+      next unless piece.color == color
+
+
+    end
+  end
 
   # in_check?(color)
   # checks if the King of color is under attack?
@@ -117,6 +124,7 @@ class Board
       starting_pos = translation[0]
       ending_pos = translation[1]
       @data[ending_pos[0]][ending_pos[1]] = @data[starting_pos[0]][starting_pos[1]]
+      @data[ending_pos[0]][ending_pos[1]].position = [ending_pos] # Update piece's position
       @data[starting_pos[0]][starting_pos[1]] = nil
     end
   end
