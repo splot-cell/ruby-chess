@@ -230,4 +230,76 @@ describe Piece do
       end
     end
   end
+
+  describe "#possible_move_squares" do
+    context "when the piece is a white pawn" do
+      subject(:white_pawn) { described_class.create(PieceType::PAWN, Color::WHITE) }
+      context "when it is on a2" do
+        it "returns [[5, 0], [4, 0]]" do
+          white_pawn.position = [6, 0]
+          expect(white_pawn.possible_move_squares).to eq([[5, 0], [4, 0]])
+        end
+      end
+
+      context "when it is on a3" do
+        it "returns [[4, 0]]" do
+          white_pawn.position = [5, 0]
+          expect(white_pawn.possible_move_squares).to eq([[4, 0]])
+        end
+      end
+    end
+
+    context "when the piece is a black pawn" do
+      subject(:black_pawn) { described_class.create(PieceType::PAWN, Color::BLACK) }
+      context "when it is on b2" do
+        it "returns [[7, 1]]" do
+          black_pawn.position = [6, 1]
+          expect(black_pawn.possible_move_squares).to eq([[7, 1]])
+        end
+      end
+
+      context "when it is on b7" do
+        it "returns [[2, 1], [3, 1]]" do
+          black_pawn.position = [1, 1]
+          expect(black_pawn.possible_move_squares).to eq([[2, 1], [3, 1]])
+        end
+      end
+    end
+  end
+
+  describe "#possible_attack_squares" do
+    context "when the piece is a white pawn" do
+      subject(:white_pawn) { described_class.create(PieceType::PAWN, Color::WHITE) }
+      context "when it is on a2" do
+        it "returns [[5, -1], [5, 1]]" do
+          white_pawn.position = [6, 0]
+          expect(white_pawn.possible_attack_squares).to eq([[5, -1], [5, 1]])
+        end
+      end
+
+      context "when it is on a3" do
+       it "returns [[4, -1], [4, 1]]" do
+          white_pawn.position = [5, 0]
+          expect(white_pawn.possible_attack_squares).to eq([[4, -1], [4, 1]])
+        end
+      end
+    end
+
+    context "when the piece is a black pawn" do
+      subject(:black_pawn) { described_class.create(PieceType::PAWN, Color::BLACK) }
+      context "when it is on b2" do
+        it "returns [[7, 0], [7, 2]]" do
+          black_pawn.position = [6, 1]
+          expect(black_pawn.possible_attack_squares).to eq([[7, 0], [7, 2]])
+        end
+      end
+
+      context "when it is on b7" do
+        it "returns [[2, 0], [2, 2]]" do
+          black_pawn.position = [1, 1]
+          expect(black_pawn.possible_attack_squares).to eq([[2, 0], [2, 2]])
+        end
+      end
+    end
+  end
 end
