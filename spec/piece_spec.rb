@@ -265,6 +265,16 @@ describe Piece do
         end
       end
     end
+
+    context "when the piece is a knight" do
+      subject(:knight) { described_class.create(PieceType::KNIGHT, Color::BLACK) }
+      context "when it is on d4" do
+        it "returns [[2, 2], [2, 4], [3, 5], [5, 5], [6, 4], [6, 2], [5, 1], [3, 1]]" do
+          knight.position = [4, 3]
+          expect(knight.possible_move_squares.sort).to eq([[2, 2], [2, 4], [3, 5], [5, 5], [6, 4], [6, 2], [5, 1], [3, 1]].sort)
+        end
+      end
+    end
   end
 
   describe "#possible_attack_squares" do
@@ -298,6 +308,16 @@ describe Piece do
         it "returns [[2, 0], [2, 2]]" do
           black_pawn.position = [1, 1]
           expect(black_pawn.possible_attack_squares).to eq([[2, 0], [2, 2]])
+        end
+      end
+    end
+
+    context "when the piece is a knight" do
+      subject(:knight) { described_class.create(PieceType::KNIGHT, Color::BLACK) }
+      context "when it is on d4" do
+        it "returns [[2, 2], [2, 4], [3, 5], [5, 5], [6, 4], [6, 2], [5, 1], [3, 1]]" do
+          knight.position = [4, 3]
+          expect(knight.possible_attack_squares.sort).to eq([[2, 2], [2, 4], [3, 5], [5, 5], [6, 4], [6, 2], [5, 1], [3, 1]].sort)
         end
       end
     end
