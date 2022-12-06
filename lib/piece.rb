@@ -30,12 +30,30 @@ class Piece
     @class_register << candidate
   end
 
+  def accessible_squares(translation_list)
+    return translation_list.map { |t| translated_position(t) } unless sliding?
+
+    sliding_translations(translation_list).map { |t| translated_position(t) }
+  end
+
+  def sliding_translations(translation_list)
+    return nil unless sliding?
+
+    arr = []
+    translation_list.each { |t| 8.times { |i| arr << scale_translation(i + 1, t) } }
+    arr
+  end
+
+  def scale_translation(scale, trans_matrix)
+    [scale * trans_matrix[0], scale * trans_matrix[1]]
+  end
+
   def possible_move_squares
-    move_translations.map { |t| translated_position(t) }
+    accessible_squares(move_translations)
   end
 
   def possible_attack_squares
-    attack_translations.map { |a| translated_position(a) }
+    accessible_squares(attack_translations)
   end
 
   def translated_position(trans_matrix)
