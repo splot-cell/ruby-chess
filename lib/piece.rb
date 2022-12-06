@@ -30,6 +30,16 @@ class Piece
     @class_register << candidate
   end
 
+  def possible_move_squares
+    accessible_squares(move_translations)
+  end
+
+  def possible_attack_squares
+    accessible_squares(attack_translations)
+  end
+
+  private
+
   def accessible_squares(translation_list)
     return translation_list.map { |t| translated_position(t) } unless sliding?
 
@@ -46,14 +56,6 @@ class Piece
 
   def scale_translation(scale, trans_matrix)
     [scale * trans_matrix[0], scale * trans_matrix[1]]
-  end
-
-  def possible_move_squares
-    accessible_squares(move_translations)
-  end
-
-  def possible_attack_squares
-    accessible_squares(attack_translations)
   end
 
   def translated_position(trans_matrix)
