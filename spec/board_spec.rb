@@ -57,6 +57,10 @@ describe Board do
         expect(board.instance_variable_get(:@data)[0][0].color).to be(Color::WHITE)
       end
 
+      it "populates@data[0][0] with a Piece of position [0, 0]" do
+        expect(board.instance_variable_get(:@data)[0][0].position).to eq([0, 0])
+      end
+
       it "populates @data[0][1] with nil" do
         expect(board.instance_variable_get(:@data)[0][1]).to be(nil)
       end
@@ -81,6 +85,10 @@ describe Board do
         expect(board.instance_variable_get(:@data)[4][2].color).to be(Color::BLACK)
       end
 
+      it "populates@data[4][2] with a Piece of position [4, 2]" do
+        expect(board.instance_variable_get(:@data)[4][2].position).to eq([4, 2])
+      end
+
       it "populates @data[7][7] with a Pawn" do
         expect(board.instance_variable_get(:@data)[7][7]).to be_a(Pawn)
 
@@ -88,6 +96,10 @@ describe Board do
 
       it "populates @data[7][7] with a Piece of color WHITE" do
         expect(board.instance_variable_get(:@data)[7][7].color).to be(Color::WHITE)
+      end
+
+      it "populates@data[7][7] with a Piece of position [7, 7]" do
+        expect(board.instance_variable_get(:@data)[7][7].position).to eq([7, 7])
       end
 
       it "populates @data[4][1] with nil" do
@@ -127,6 +139,14 @@ describe Board do
 
             it "sets full move number to 3" do
               expect(board.instance_variable_get(:@full_move_num)).to eq(3)
+            end
+
+            it "populates@data[7][7] with a Piece of position [7, 7]" do
+              expect(board.instance_variable_get(:@data)[7][7].position).to eq([7, 7])
+            end
+
+            it "populates@data[1][3] with a Piece of position [1, 3]" do
+              expect(board.instance_variable_get(:@data)[1][3].position).to eq([1, 3])
             end
           end
         end
@@ -232,6 +252,11 @@ describe Board do
           expected_position = "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR"
           expect { board.translate_squares(move) }.to change { board.encode_fen_position }.to eq(expected_position)
         end
+
+        it "changes the @position of piece @data[6][4] from [6, 4] to [4, 4]" do
+          piece = board.instance_variable_get(:@data)[6][4]
+          expect { board.translate_squares(move) }.to change { piece.position }.from(eq([6, 4])).to eq([4, 4])
+        end
       end
     end
 
@@ -265,6 +290,16 @@ describe Board do
         it "castles queenside" do
           expected_position = "r1b1kbnr/ppp1q1pp/2np1p2/4p3/3P4/2N1B3/PPPQPPPP/2KR1BNR"
           expect { board.translate_squares(move) }.to change { board.encode_fen_position }.to eq(expected_position)
+        end
+
+        it "changes the @position of piece @data[7][4] from [7, 4] to [7, 2]" do
+          piece = board.instance_variable_get(:@data)[7][4]
+          expect { board.translate_squares(move) }.to change { piece.position }.from(eq([7, 4])).to eq([7, 2])
+        end
+
+        it "changes the @position of piece @data[7][0] from [7, 0] to [7, 3]" do
+          piece = board.instance_variable_get(:@data)[7][0]
+          expect { board.translate_squares(move) }.to change { piece.position }.from(eq([7, 0])).to eq([7, 3])
         end
       end
     end

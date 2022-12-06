@@ -126,7 +126,7 @@ class Board
       starting_pos = translation[0]
       ending_pos = translation[1]
       @data[ending_pos[0]][ending_pos[1]] = @data[starting_pos[0]][starting_pos[1]]
-      @data[ending_pos[0]][ending_pos[1]].position = [ending_pos] # Update piece's position
+      @data[ending_pos[0]][ending_pos[1]].position = ending_pos # Update piece's position
       @data[starting_pos[0]][starting_pos[1]] = nil
     end
   end

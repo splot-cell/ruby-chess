@@ -78,11 +78,14 @@ module FEN
     temp_data = []
     fen_str.split(next_rank).each_with_index do |r, i|
       rank = []
-      r.split("").each_with_index do |char, j|
+      file = 0
+      r.split("").each do |char|
         if empty_square?(char)
           char.to_i.times { rank << nil }
+          file += char.to_i
         else
-          rank << Piece.create(decode_fen_type(char), decode_fen_color(char), [i, j])
+          rank << Piece.create(decode_fen_type(char), decode_fen_color(char), [i, file])
+          file += 1
         end
       end
       temp_data << rank
