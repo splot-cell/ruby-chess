@@ -30,23 +30,23 @@ class Piece
     @class_register << candidate
   end
 
-  def possible_move_squares
-    accessible_squares(move_translations)
+  def possible_move_squares(board)
+    accessible_squares(move_translations, board)
   end
 
-  def possible_attack_squares
-    accessible_squares(attack_translations)
+  def possible_attack_squares(board)
+    accessible_squares(attack_translations, board)
   end
 
   private
 
-  def accessible_squares(translation_list)
-    return translation_list.map { |t| translated_position(t) } unless sliding?
+  def accessible_squares(translation_list, board)
+    return translation_list.map { |t| translated_position(t) }.keep_if { |p| board.within_bounds?(p) } unless sliding?
 
-    sliding_translations(translation_list).map { |t| translated_position(t) }
+    sliding_translations(translation_list, board).map { |t| translated_position(t) }
   end
 
-  def sliding_translations(translation_list)
+  def sliding_translations(translation_list, board)
     return nil unless sliding?
 
     arr = []
