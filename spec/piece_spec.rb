@@ -282,6 +282,7 @@ describe Piece do
         end
       end
     end
+
     context "when board.within_bounds? always returns false" do
       before do
         allow(board).to receive(:within_bounds?).and_return(false)
