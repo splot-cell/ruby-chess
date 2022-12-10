@@ -298,6 +298,27 @@ describe Piece do
         end
       end
     end
+
+    context "when the piece is a bishop" do
+      subject(:bishop) { described_class.create(PieceType::BISHOP, Color::WHITE) }
+      let(:real_board) { Board.new }
+
+      context "when the bishop in an empty board at position b3" do
+        before do
+          position = "8/8/8/8/8/1B6/8/8 w - - 0 1"
+          real_board.restore_position(position)
+          bishop.position = [5, 1]
+        end
+
+        it "returns correct diagonal squares up to edge of board" do
+          expected_sqs = [[4, 0], [6, 0], [4, 2], [3, 3], [2, 4], [1, 5], [0, 6], [6, 2], [7, 3]].sort
+
+          expect(bishop.possible_move_squares(real_board).sort).to eq(expected_sqs)
+        end
+
+      end
+
+    end
   end
 
   describe "#possible_attack_squares" do
