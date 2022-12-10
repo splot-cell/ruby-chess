@@ -331,6 +331,39 @@ describe Piece do
         end
       end
     end
+
+    context "when the piece is a queen" do
+      subject(:queen) { described_class.create(PieceType::QUEEN, Color::BLACK) }
+      let(:real_board) { Board.new }
+
+      context "when the queen is in an empty board at position e8" do
+        before do
+          position = "4q3/8/8/8/8/8/8/8 w - - 0 1"
+          real_board.restore_position(position)
+          queen.position = [0, 4]
+        end
+
+        it "returns correct diagonal and orthogonal squares up to edge of board" do
+          expected_sqs = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 5], [0, 6], [0, 7], [1, 4], [2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4], [1, 3], [2, 2], [3, 1], [4, 0], [1, 5], [2, 6], [3, 7]].sort
+
+          expect(queen.possible_move_squares(real_board).sort).to eq(expected_sqs)
+        end
+      end
+
+      context "when the queen at position e8 with kings at e6 and g6 " do
+        before do
+          position = "4q3/8/4K1k1/8/8/8/8/8 w - - 0 1"
+          real_board.restore_position(position)
+          queen.position = [0, 4]
+        end
+
+        it "returns correct diagonal and orthogonal squares up to edge of board or other pieces" do
+          expected_sqs = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 5], [0, 6], [0, 7], [1, 4], [2, 4], [1, 3], [2, 2], [3, 1], [4, 0], [1, 5], [2, 6]].sort
+
+          expect(queen.possible_move_squares(real_board).sort).to eq(expected_sqs)
+        end
+      end
+    end
   end
 
   describe "#possible_attack_squares" do
@@ -414,6 +447,39 @@ describe Piece do
           expected_sqs = [[4, 0], [6, 0], [4, 2], [3, 3], [6, 2], [7, 3]].sort
 
           expect(bishop.possible_attack_squares(real_board).sort).to eq(expected_sqs)
+        end
+      end
+    end
+
+    context "when the piece is a queen" do
+      subject(:queen) { described_class.create(PieceType::QUEEN, Color::BLACK) }
+      let(:real_board) { Board.new }
+
+      context "when the queen is in an empty board at position e8" do
+        before do
+          position = "4q3/8/8/8/8/8/8/8 w - - 0 1"
+          real_board.restore_position(position)
+          queen.position = [0, 4]
+        end
+
+        it "returns correct diagonal and orthogonal squares up to edge of board" do
+          expected_sqs = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 5], [0, 6], [0, 7], [1, 4], [2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4], [1, 3], [2, 2], [3, 1], [4, 0], [1, 5], [2, 6], [3, 7]].sort
+
+          expect(queen.possible_attack_squares(real_board).sort).to eq(expected_sqs)
+        end
+      end
+
+      context "when the queen at position e8 with kings at e6 and g6 " do
+        before do
+          position = "4q3/8/4K1k1/8/8/8/8/8 w - - 0 1"
+          real_board.restore_position(position)
+          queen.position = [0, 4]
+        end
+
+        it "returns correct diagonal and orthogonal squares up to edge of board or other pieces" do
+          expected_sqs = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 5], [0, 6], [0, 7], [1, 4], [2, 4], [1, 3], [2, 2], [3, 1], [4, 0], [1, 5], [2, 6]].sort
+
+          expect(queen.possible_attack_squares(real_board).sort).to eq(expected_sqs)
         end
       end
     end
