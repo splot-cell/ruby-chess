@@ -27,7 +27,9 @@ class Board
     @full_move_num = position[:full_move_num]
   end
 
-  def within_bounds?(rank_index, file_index)
+  def within_bounds?(square)
+    rank_index = square[0]
+    file_index = square[1]
     rank_index.between?(0, 7) && file_index.between?(0, 7)
   end
 
@@ -160,7 +162,9 @@ class Board
   end
 
   def square_empty?(square)
-    @data[square].nil?
+    rank_index = square[0]
+    file_index = square[1]
+    @data[rank_index][file_index].nil?
   end
 
   def opponent_color(color)

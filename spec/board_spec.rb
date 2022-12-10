@@ -155,45 +155,45 @@ describe Board do
   end
 
   describe "#within_bounds?" do
-    context "when the coordinate is [0][0]" do
+    context "when the coordinate is [0, 0]" do
       it "is within bounds" do
-        expect(board.within_bounds?(0, 0)).to be(true)
+        expect(board.within_bounds?([0, 0])).to be(true)
       end
     end
 
-    context "when the coordinate is [7][0]" do
+    context "when the coordinate is [7, 0]" do
       it "is within bounds" do
-        expect(board.within_bounds?(7, 0)).to be(true)
+        expect(board.within_bounds?([7, 0])).to be(true)
       end
     end
 
-    context "when the coordinate is [7][7]" do
+    context "when the coordinate is [7, 7]" do
       it "is within bounds" do
-        expect(board.within_bounds?(7, 7)).to be(true)
+        expect(board.within_bounds?([7, 7])).to be(true)
       end
     end
 
-    context "when the coordinate is [4][3]" do
+    context "when the coordinate is [4, 3]" do
       it "is within bounds" do
-        expect(board.within_bounds?(4, 3)).to be(true)
+        expect(board.within_bounds?([4, 3])).to be(true)
       end
     end
 
-    context "when the coordinate is [0][8]" do
+    context "when the coordinate is [0, 8]" do
       it "is not within bounds" do
-        expect(board.within_bounds?(0, 8)).to be(false)
+        expect(board.within_bounds?([0, 8])).to be(false)
       end
     end
 
-    context "when the coordinate is [8][0]" do
+    context "when the coordinate is [8, 0]" do
       it "is not within bounds" do
-        expect(board.within_bounds?(8, 0)).to be(false)
+        expect(board.within_bounds?([8, 0])).to be(false)
       end
     end
 
-    context "when the coordinate is [-2][1]" do
+    context "when the coordinate is [-2, 1]" do
       it "is not within bounds" do
-        expect(board.within_bounds?(-2, 1)).to be(false)
+        expect(board.within_bounds?([-2, 1])).to be(false)
       end
     end
   end
