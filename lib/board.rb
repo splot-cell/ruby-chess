@@ -94,9 +94,9 @@ class Board
   # checks if any of the pieces of color are attacking sq
   def sq_under_attack?(square, color)
     @data.flatten.each do |piece|
-      next unless piece.color == color
+      next unless piece && piece.color == color
 
-      return true if piece.possible_attack_squares.include?(square)
+      return true if piece.possible_attack_squares(self).include?(square)
     end
 
     false

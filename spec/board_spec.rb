@@ -338,4 +338,44 @@ describe Board do
       end
     end
   end
+
+  describe "#sq_under_attack?" do
+    context "when the position is rnbqkbnr/pppp1ppp/8/4P3/8/8/PPP1PPPP/RNBQKBNR b KQkq - 0 1" do
+      before do
+        board.restore_position("rnbqkbnr/pppp1ppp/8/4P3/8/8/PPP1PPPP/RNBQKBNR b KQkq - 0 1")
+      end
+
+      it "returns false for sq e5 under attack by black" do
+        expect(board.sq_under_attack?([3, 4], Color::BLACK)).to eq(false)
+      end
+
+      it "returns false for sq e5 under attack by white" do
+        expect(board.sq_under_attack?([3, 4], Color::WHITE)).to eq(false)
+      end
+
+      it "returns true for sq c2 under attack by white" do
+        expect(board.sq_under_attack?([6, 2], Color::WHITE)).to eq(true)
+      end
+
+      it "returns true for sq f6 under attack by white" do
+        expect(board.sq_under_attack?([2, 5], Color::WHITE)).to eq(true)
+      end
+
+      it "returns true for sq f6 under attack by black" do
+        expect(board.sq_under_attack?([2, 5], Color::BLACK)).to eq(true)
+      end
+
+      it "returns true for sq h4 under attack by black" do
+        expect(board.sq_under_attack?([4, 7], Color::BLACK)).to eq(true)
+      end
+
+      it "returns false for sq a5 under attack by black" do
+        expect(board.sq_under_attack?([3, 0], Color::BLACK)).to eq(false)
+      end
+
+      it "returns false for sq a5 under attack by white" do
+        expect(board.sq_under_attack?([3, 0], Color::WHITE)).to eq(false)
+      end
+    end
+  end
 end
