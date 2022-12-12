@@ -67,21 +67,21 @@ class Board
 
     case rook_square
     when [0, 0]
-      return false unless @castling_avail.contains?("q")
+      return false unless @castling_avail.include?("q")
 
-      return false unless squares_between(rook_square, black_king_square).all? { |sq| square_empty?(sq)  && !sq_under_attack?(sq) }
+      return false unless squares_between_ex(rook_square, black_king_square).all? { |sq| square_empty?(sq) } && squares_between_in(rook_square, black_king_square).none? { |sq| sq_under_attack?(sq, Color::WHITE) }
     when [0, 7]
-      return false unless @castling_avail.contains?("k")
+      return false unless @castling_avail.include?("k")
 
-      return false unless squares_between(rook_square, black_king_square).all? { |sq| square_empty?(sq)  && !sq_under_attack?(sq) }
+      return false unless squares_between_ex(rook_square, black_king_square).all? { |sq| square_empty?(sq) } && squares_between_in(rook_square, black_king_square).none? { |sq| sq_under_attack?(sq, Color::WHITE) }
     when [7, 0]
-      return false unless @castling_avail.contains?("Q")
+      return false unless @castling_avail.include?("Q")
 
-      return false unless squares_between(rook_square, white_king_square).all? { |sq| square_empty?(sq)  && !sq_under_attack?(sq) }
+      return false unless squares_between_ex(rook_square, white_king_square).all? { |sq| square_empty?(sq) } && squares_between_in(rook_square, white_king_square).none? { |sq| sq_under_attack?(sq, Color::BLACK) }
     when [7, 7]
-      return false unless @castling_avail.contains?("K")
+      return false unless @castling_avail.include?("K")
 
-      return false unless squares_between(rook_square, white_king_square).all? { |sq| square_empty?(sq) && !sq_under_attack?(sq) }
+      return false unless squares_between_ex(rook_square, white_king_square).all? { |sq| square_empty?(sq) } && squares_between_in(rook_square, white_king_square).none? { |sq| sq_under_attack?(sq, Color::BLACK) }
     end
     true
   end
@@ -154,13 +154,28 @@ class Board
     str
   end
 
-  def squares_between(sq1, sq2)
+  def squares_between_ex(sq1, sq2)
     ret = []
-    current_sq = sq1
+    current_sq = Array.new(sq1)
+    loop do
+      (current_sq[0] = current_sq[0] < sq2[0] ? current_sq[0] + 1 : current_sq[0] - 1) unless current_sq[0] == sq2[0]
+      (current_sq[1] = current_sq[1] < sq2[1] ? current_sq[1] + 1 : current_sq[1] - 1) unless current_sq[1] == sq2[1]
+
+      break if current_sq == sq2
+
+      ret << Array.new(current_sq)
+    end
+    ret
+  end
+
+  def squares_between_in(sq1, sq2)
+    ret = [Array.new(sq1)]
+    current_sq = Array.new(sq1)
     until current_sq == sq2
       (current_sq[0] = current_sq[0] < sq2[0] ? current_sq[0] + 1 : current_sq[0] - 1) unless current_sq[0] == sq2[0]
       (current_sq[1] = current_sq[1] < sq2[1] ? current_sq[1] + 1 : current_sq[1] - 1) unless current_sq[1] == sq2[1]
-      ret << current_sq
+
+      ret << Array.new(current_sq)
     end
     ret
   end

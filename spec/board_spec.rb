@@ -394,4 +394,96 @@ describe Board do
       end
     end
   end
+
+  describe "#castling_valid?" do
+    let(:black_queenside) { [0, 0] }
+    let(:black_kingside) { [0, 7] }
+    let(:white_queenside) { [7, 0] }
+    let(:white_kingside) { [7, 7] }
+    context "when the white king can no longer castle" do
+      context "when the black king can castle kingside" do
+        before do
+          board.restore_position("rnbqk2r/pppp1ppp/5n2/4P3/1b6/8/PPPQPPPP/RNBK1BNR b kq - 0 1")
+        end
+
+        it "returns true for black kingside" do
+          expect(board.castling_valid?(black_kingside)).to eq(true)
+        end
+
+        it "returns false for black queenside" do
+          expect(board.castling_valid?(black_queenside)).to eq(false)
+        end
+
+        context "when the kings has moved" do
+          it "returns false for white kingside" do
+            expect(board.castling_valid?(white_kingside)).to eq(false)
+          end
+
+          it "returns false for white queenside" do
+            expect(board.castling_valid?(white_queenside)).to eq(false)
+          end
+        end
+      end
+    end
+
+    context "when the white king can only castle kingside" do
+      context "when the black king cannot castle on either side" do
+        before do
+          board.restore_position("r3kbnr/ppN2ppp/n1ppb3/8/3qP3/4BN2/PPP1BPPP/R3K2R b KQkq - 0 1")
+        end
+
+        context "when pieces are between the king and rook" do
+          it "returns false for black kingside" do
+            expect(board.castling_valid?(black_kingside)).to eq(false)
+          end
+        end
+
+        context "when the king and rook are under attack" do
+          it "returns false for black queenside" do
+            expect(board.castling_valid?(black_queenside)).to eq(false)
+          end
+        end
+
+        context "when the king can castle kingside" do
+          it "returns true for white kingside" do
+            expect(board.castling_valid?(white_kingside)).to eq(true)
+          end
+        end
+
+        context "when a square between the king and rook is under attack" do
+          it "returns false for white queenside" do
+            expect(board.castling_valid?(white_queenside)).to eq(false)
+          end
+        end
+      end
+    end
+  end
+
+  describe "#squares_between_ex" do
+    context "when given the bounds of the black king's starting square, and the kingside rook sqare" do
+      it "returns [[0, 5], [0, 6]]" do
+        expect(board.squares_between_ex([0, 4], [0, 7])).to eq([[0, 5], [0, 6]])
+      end
+    end
+
+    context "when given the bounds of the black king's starting square, and the queenside rook sqare" do
+      it "returns [[0, 3], [0, 2], [0, 1]]" do
+        expect(board.squares_between_ex([0, 4], [0, 0])).to eq([[0, 3], [0, 2], [0, 1]])
+      end
+    end
+  end
+
+  describe "#squares_between_in" do
+    context "when given the bounds of the black king's starting square, and the kingside rook sqare" do
+      it "returns [[0, 4], [0, 5], [0, 6], [0, 7]]" do
+        expect(board.squares_between_in([0, 4], [0, 7])).to eq([[0, 4], [0, 5], [0, 6], [0, 7]])
+      end
+    end
+
+    context "when given the bounds of the black king's starting square, and the queenside rook sqare" do
+      it "returns [[0, 4], [0, 3], [0, 2], [0, 1], [0, 0]]" do
+        expect(board.squares_between_in([0, 4], [0, 0])).to eq([[0, 4], [0, 3], [0, 2], [0, 1], [0, 0]])
+      end
+    end
+  end
 end
