@@ -60,6 +60,7 @@ class Board
   # checks if castling_avail
   # checks if squares between rook and king are free
   # checks if squares are under attack
+  # NEED TO ALSO CHECK IF ROOK OR KING UNDER ATTACK
   def castling_valid?(rook_square)
     black_king_square = [0, 4]
     white_king_square = [7, 4]
@@ -124,6 +125,7 @@ class Board
   # if pawn, also try attacking direction vectors
   # depending on castling state, check to see if castling squares are open, if so, add move to move pool
   # validate each move in move pool does not leave you in check
+  # set promotion flag if move is pawn to opposing final rank
 
   def translate_squares(translations)
     translations.each do |translation|
