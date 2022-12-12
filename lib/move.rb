@@ -37,6 +37,7 @@ class Move
   # check if castling valid if necessary
   # create version of board with new position and query in_check
   def valid?(board)
+    # if this is an en passant move, check that the square under attack is the en passant square
     return false if en_passant && board.en_passant_target != translation_list[0][1]
 
     return false if castle && board.castling_valid?(translation_list[1][0])
