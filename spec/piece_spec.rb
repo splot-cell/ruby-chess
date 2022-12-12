@@ -332,6 +332,25 @@ describe Piece do
       end
     end
 
+    context "when the piece is a rook" do
+      subject(:rook) { described_class.create(PieceType::ROOK, Color::WHITE) }
+      let(:real_board) { Board.new }
+
+      context "when the rook is at position h1 with kings at h4 and h5 " do
+        before do
+          position = "8/8/8/7K/7k/8/8/7R b - - 0 1"
+          real_board.restore_position(position)
+          rook.position = [7, 7]
+        end
+
+        it "returns correct orthogonal squares up to edge of board or other pieces" do
+          expected_sqs = [[7, 0], [7, 1], [7, 2], [7, 3], [7, 4], [7, 5], [7, 6], [4, 7], [5, 7], [6, 7]].sort
+
+          expect(rook.possible_move_squares(real_board).sort).to eq(expected_sqs)
+        end
+      end
+    end
+
     context "when the piece is a queen" do
       subject(:queen) { described_class.create(PieceType::QUEEN, Color::BLACK) }
       let(:real_board) { Board.new }
@@ -350,7 +369,7 @@ describe Piece do
         end
       end
 
-      context "when the queen at position e8 with kings at e6 and g6 " do
+      context "when the queen is at position e8 with kings at e6 and g6 " do
         before do
           position = "4q3/8/4K1k1/8/8/8/8/8 w - - 0 1"
           real_board.restore_position(position)
@@ -451,6 +470,25 @@ describe Piece do
       end
     end
 
+    context "when the piece is a rook" do
+      subject(:rook) { described_class.create(PieceType::ROOK, Color::WHITE) }
+      let(:real_board) { Board.new }
+
+      context "when the rook is at position h1 with kings at h4 and h5 " do
+        before do
+          position = "8/8/8/7K/7k/8/8/7R b - - 0 1"
+          real_board.restore_position(position)
+          rook.position = [7, 7]
+        end
+
+        it "returns correct orthogonal squares up to edge of board or other pieces" do
+          expected_sqs = [[7, 0], [7, 1], [7, 2], [7, 3], [7, 4], [7, 5], [7, 6], [4, 7], [5, 7], [6, 7]].sort
+
+          expect(rook.possible_attack_squares(real_board).sort).to eq(expected_sqs)
+        end
+      end
+    end
+
     context "when the piece is a queen" do
       subject(:queen) { described_class.create(PieceType::QUEEN, Color::BLACK) }
       let(:real_board) { Board.new }
@@ -469,7 +507,7 @@ describe Piece do
         end
       end
 
-      context "when the queen at position e8 with kings at e6 and g6 " do
+      context "when the queen is at position e8 with kings at e6 and g6 " do
         before do
           position = "4q3/8/4K1k1/8/8/8/8/8 w - - 0 1"
           real_board.restore_position(position)
