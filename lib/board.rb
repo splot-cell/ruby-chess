@@ -111,6 +111,8 @@ class Board
   def find_piece_coor(type, color)
     @data.each_index do |rank_i|
       @data[rank_i].each_index do |file_i|
+        next if @data[rank_i][file_i].nil?
+
         return [rank_i, file_i] if @data[rank_i][file_i].type == type && @data[rank_i][file_i].color == color
       end
     end

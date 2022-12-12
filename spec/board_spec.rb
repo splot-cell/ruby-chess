@@ -378,4 +378,20 @@ describe Board do
       end
     end
   end
+
+  describe "#in_check?" do
+    context "when the white king is in check and black king is not" do
+      before do
+        board.restore_position("rnbqk1nr/pppp1ppp/8/4P3/1b6/8/PPP1PPPP/RNBQKBNR w KQkq - 0 1")
+      end
+
+      it "returns false for black" do
+        expect(board.in_check?(Color::BLACK)).to eq(false)
+      end
+
+      it "returns true for white" do
+        expect(board.in_check?(Color::WHITE)).to eq(true)
+      end
+    end
+  end
 end
