@@ -486,4 +486,54 @@ describe Board do
       end
     end
   end
+
+  describe "#in_check?" do
+    context "when the black king is in check" do
+      context "when the white king is not in check" do
+        before do
+          board.restore_position("r3kbnr/ppN2ppp/n1ppb3/8/3qP3/4BN2/PPP1BPPP/R3K2R b KQkq - 0 1")
+        end
+
+        it "returns true for black" do
+          expect(board.in_check?(Color::BLACK)).to eq(true)
+        end
+
+        it "returns false for white" do
+          expect(board.in_check?(Color::WHITE)).to eq(false)
+        end
+      end
+    end
+
+    context "when the black king is not in check" do
+      context "when the white king is in check" do
+        before do
+          board.restore_position("r2k1bnr/ppN2ppp/n1ppb3/8/4P3/2q1BN2/PP2BPPP/R3K2R w KQ - 0 1")
+        end
+
+        it "returns false for black" do
+          expect(board.in_check?(Color::BLACK)).to eq(false)
+        end
+
+        it "returns true for white" do
+          expect(board.in_check?(Color::WHITE)).to eq(true)
+        end
+      end
+    end
+
+    context "when the black king is not in check" do
+      context "when the white king is not in check" do
+        before do
+          board.restore_position("r2k1bnr/ppN2ppp/n1ppb3/8/4P3/2P1BN2/P3BPPP/R3K2R b KQ - 0 1")
+        end
+
+        it "returns false for black" do
+          expect(board.in_check?(Color::BLACK)).to eq(false)
+        end
+
+        it "returns false for white" do
+          expect(board.in_check?(Color::WHITE)).to eq(false)
+        end
+      end
+    end
+  end
 end
