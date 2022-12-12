@@ -2,7 +2,7 @@
 
 require_relative "../piece"
 
-class Pawn < Piece
+class Pawn < SteppingPiece
   def self.type
     PAWN
   end
@@ -22,10 +22,6 @@ class Pawn < Piece
     return [[-1, -1], [-1, 1]] if color == WHITE
 
     [[1, -1], [1, 1]]
-  end
-
-  def sliding?
-    false
   end
 end
 

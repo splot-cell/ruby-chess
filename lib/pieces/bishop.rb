@@ -2,7 +2,7 @@
 
 require_relative "../piece"
 
-class Bishop < Piece
+class Bishop < SlidingPiece
   def self.type
     BISHOP
   end
@@ -16,10 +16,6 @@ class Bishop < Piece
 
   def attack_translations
     move_translations
-  end
-
-  def sliding?
-    true
   end
 end
 

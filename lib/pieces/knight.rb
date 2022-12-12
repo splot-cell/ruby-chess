@@ -2,7 +2,7 @@
 
 require_relative "../piece"
 
-class Knight < Piece
+class Knight < SteppingPiece
   def self.type
     KNIGHT
   end
@@ -20,10 +20,6 @@ class Knight < Piece
 
   def attack_translations
     move_translations
-  end
-
-  def sliding?
-    false
   end
 end
 

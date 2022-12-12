@@ -2,7 +2,7 @@
 
 require_relative "../piece"
 
-class Queen < Piece
+class Queen < SlidingPiece
   def self.type
     QUEEN
   end
@@ -20,10 +20,6 @@ class Queen < Piece
 
   def attack_translations
     move_translations
-  end
-
-  def sliding?
-    true
   end
 end
 

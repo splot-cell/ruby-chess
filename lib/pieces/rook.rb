@@ -2,7 +2,7 @@
 
 require_relative "../piece"
 
-class Rook < Piece
+class Rook < SlidingPiece
   def self.type
     ROOK
   end
@@ -16,10 +16,6 @@ class Rook < Piece
 
   def attack_translations
     move_translations
-  end
-
-  def sliding?
-    true
   end
 end
 

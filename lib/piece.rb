@@ -40,13 +40,25 @@ class Piece
 
   private
 
-  def accessible_squares(translation_list, board)
-    return translation_list.map { |t| translated_position(t) }.keep_if { |p| board.within_bounds?(p) } unless sliding?
+  def translated_position(trans_matrix)
+    x = @position[0] + trans_matrix[0]
+    y = @position[1] + trans_matrix[1]
+    [x, y]
+  end
+end
 
-    sliding_squares(translation_list, board)
+class SteppingPiece < Piece
+  def accessible_squares(translation_list, board)
+    translation_list.map { |t| translated_position(t) }.keep_if { |p| board.within_bounds?(p) }
   end
 
-  def sliding_squares(translation_list, board)
+  def sliding?
+    false
+  end
+end
+
+class SlidingPiece < Piece
+  def accessible_squares(translation_list, board)
     return nil unless sliding?
 
     arr = []
@@ -64,13 +76,13 @@ class Piece
     arr
   end
 
-  def scale_translation(scale, trans_matrix)
-    [scale * trans_matrix[0], scale * trans_matrix[1]]
+  def sliding?
+    true
   end
 
-  def translated_position(trans_matrix)
-    x = @position[0] + trans_matrix[0]
-    y = @position[1] + trans_matrix[1]
-    [x, y]
+  private
+
+  def scale_translation(scale, trans_matrix)
+    [scale * trans_matrix[0], scale * trans_matrix[1]]
   end
 end
