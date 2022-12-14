@@ -31,10 +31,9 @@ class Piece
   end
 
   def possible_move_squares(board)
-    valid_moves = accessible_squares(move_translations, board).keep_if { |sq| board.square_empty?(sq) }
-    valid_attacks = threatened_squares(board).keep_if { |sq| board.color_at_sq(sq) == board.opponent_color(@color) }
-
-    (valid_moves + valid_attacks).uniq
+    accessible_squares(move_translations, board).keep_if do |sq|
+      board.square_empty?(sq) || board.color_at_sq(sq) == board.opponent_color(@color)
+    end
   end
 
   def threatened_squares(board)
