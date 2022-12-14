@@ -7,7 +7,7 @@ class Move
 
   attr_accessor :en_passant, :castle, :promotion, :translation_list, :pawn_double_push, :piece
 
-# checks whether it's a basic or complex move...
+  # checks whether it's a basic or complex move...
   def basic?
     !(en_passant || castle || promotion)
   end
@@ -25,14 +25,14 @@ class Move
     board.toggle_current_player
   end
 
-# calls board.translate_squares(@translation_list)
+  # calls board.translate_squares(@translation_list)
   def execute(board)
     update_board_state(board)
 
     board.translate_squares(translation_list)
   end
 
-# checks whether move is valid on board
+  # checks whether move is valid on board
   # check if en passant valid if necessary
   # check if castling valid if necessary
   # create version of board with new position and query in_check
