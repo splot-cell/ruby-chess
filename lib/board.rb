@@ -97,7 +97,7 @@ class Board
     @data.flatten.each do |piece|
       next unless piece && piece.color == color
 
-      return true if piece.possible_attack_squares(self).include?(square)
+      return true if piece.threatened_squares(self).include?(square)
     end
 
     false

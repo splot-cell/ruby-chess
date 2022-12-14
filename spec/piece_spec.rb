@@ -393,7 +393,7 @@ describe Piece do
     end
   end
 
-  describe "#possible_attack_squares" do
+  describe "#threatened_squares" do
     let(:board) { double("board") }
     context "when board#within_bounds? always returns true" do
       before do
@@ -405,14 +405,14 @@ describe Piece do
         context "when it is on a2" do
           it "returns [[5, -1], [5, 1]]" do
             white_pawn.position = [6, 0]
-            expect(white_pawn.possible_attack_squares(board)).to eq([[5, -1], [5, 1]])
+            expect(white_pawn.threatened_squares(board)).to eq([[5, -1], [5, 1]])
           end
         end
 
         context "when it is on a3" do
         it "returns [[4, -1], [4, 1]]" do
             white_pawn.position = [5, 0]
-            expect(white_pawn.possible_attack_squares(board)).to eq([[4, -1], [4, 1]])
+            expect(white_pawn.threatened_squares(board)).to eq([[4, -1], [4, 1]])
           end
         end
       end
@@ -422,14 +422,14 @@ describe Piece do
         context "when it is on b2" do
           it "returns [[7, 0], [7, 2]]" do
             black_pawn.position = [6, 1]
-            expect(black_pawn.possible_attack_squares(board)).to eq([[7, 0], [7, 2]])
+            expect(black_pawn.threatened_squares(board)).to eq([[7, 0], [7, 2]])
           end
         end
 
         context "when it is on b7" do
           it "returns [[2, 0], [2, 2]]" do
             black_pawn.position = [1, 1]
-            expect(black_pawn.possible_attack_squares(board)).to eq([[2, 0], [2, 2]])
+            expect(black_pawn.threatened_squares(board)).to eq([[2, 0], [2, 2]])
           end
         end
       end
@@ -439,7 +439,7 @@ describe Piece do
         context "when it is on d4" do
           it "returns [[2, 2], [2, 4], [3, 5], [5, 5], [6, 4], [6, 2], [5, 1], [3, 1]]" do
             knight.position = [4, 3]
-            expect(knight.possible_attack_squares(board).sort).to eq([[2, 2], [2, 4], [3, 5], [5, 5], [6, 4], [6, 2], [5, 1], [3, 1]].sort)
+            expect(knight.threatened_squares(board).sort).to eq([[2, 2], [2, 4], [3, 5], [5, 5], [6, 4], [6, 2], [5, 1], [3, 1]].sort)
           end
         end
       end
@@ -459,7 +459,7 @@ describe Piece do
         it "returns correct diagonal squares up to edge of board" do
           expected_sqs = [[4, 0], [6, 0], [4, 2], [3, 3], [2, 4], [1, 5], [0, 6], [6, 2], [7, 3]].sort
 
-          expect(bishop.possible_attack_squares(real_board).sort).to eq(expected_sqs)
+          expect(bishop.threatened_squares(real_board).sort).to eq(expected_sqs)
         end
       end
 
@@ -473,7 +473,7 @@ describe Piece do
         it "returns correct diagonal squares up to edge of board and other pieces" do
           expected_sqs = [[4, 0], [6, 0], [4, 2], [3, 3], [6, 2], [7, 3]].sort
 
-          expect(bishop.possible_attack_squares(real_board).sort).to eq(expected_sqs)
+          expect(bishop.threatened_squares(real_board).sort).to eq(expected_sqs)
         end
       end
     end
@@ -492,7 +492,7 @@ describe Piece do
         it "returns correct orthogonal squares up to edge of board or other pieces" do
           expected_sqs = [[7, 0], [7, 1], [7, 2], [7, 3], [7, 4], [7, 5], [7, 6], [4, 7], [5, 7], [6, 7]].sort
 
-          expect(rook.possible_attack_squares(real_board).sort).to eq(expected_sqs)
+          expect(rook.threatened_squares(real_board).sort).to eq(expected_sqs)
         end
       end
     end
@@ -511,7 +511,7 @@ describe Piece do
         it "returns correct diagonal and orthogonal squares up to edge of board" do
           expected_sqs = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 5], [0, 6], [0, 7], [1, 4], [2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4], [1, 3], [2, 2], [3, 1], [4, 0], [1, 5], [2, 6], [3, 7]].sort
 
-          expect(queen.possible_attack_squares(real_board).sort).to eq(expected_sqs)
+          expect(queen.threatened_squares(real_board).sort).to eq(expected_sqs)
         end
       end
 
@@ -525,7 +525,7 @@ describe Piece do
         it "returns correct diagonal and orthogonal squares up to edge of board or other pieces" do
           expected_sqs = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 5], [0, 6], [0, 7], [1, 4], [2, 4], [1, 3], [2, 2], [3, 1], [4, 0], [1, 5], [2, 6]].sort
 
-          expect(queen.possible_attack_squares(real_board).sort).to eq(expected_sqs)
+          expect(queen.threatened_squares(real_board).sort).to eq(expected_sqs)
         end
       end
     end
