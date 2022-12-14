@@ -232,76 +232,70 @@ describe Piece do
   end
 
   describe "#possible_move_squares" do
-    let(:board) { double("board") }
-    context "when board#within_bounds? always returns true" do
-      before do
-        allow(board).to receive(:within_bounds?).and_return(true)
+    let(:real_board) { Board.new }
+
+    context "when the piece is a white pawn" do
+      subject(:white_pawn) { described_class.create(PieceType::PAWN, Color::WHITE) }
+      context "when it is on a2" do
+        it "returns [[5, 0], [4, 0]]" do
+          real_board.restore_position("8/8/8/8/8/8/P7/8 b - - 0 1")
+          white_pawn.position = [6, 0]
+          expect(white_pawn.possible_move_squares(real_board)).to eq([[5, 0], [4, 0]])
+        end
       end
 
-      context "when the piece is a white pawn" do
-        subject(:white_pawn) { described_class.create(PieceType::PAWN, Color::WHITE) }
-        context "when it is on a2" do
-          it "returns [[5, 0], [4, 0]]" do
-            white_pawn.position = [6, 0]
-            expect(white_pawn.possible_move_squares(board)).to eq([[5, 0], [4, 0]])
-          end
+      context "when it is on a3" do
+        it "returns [[4, 0]]" do
+          real_board.restore_position("8/8/8/8/8/P7/8/8 b - - 0 1")
+          white_pawn.position = [5, 0]
+          expect(white_pawn.possible_move_squares(real_board)).to eq([[4, 0]])
         end
 
-        context "when it is on a3" do
-          it "returns [[4, 0]]" do
+        context "when an enemy piece is on b4" do
+          before do
+            real_board.restore_position("8/8/8/8/1n6/P7/8/8 w - - 0 1")
+          end
+
+          it "returns [[4, 0], [4, 1]]" do
             white_pawn.position = [5, 0]
-            expect(white_pawn.possible_move_squares(board)).to eq([[4, 0]])
-          end
-        end
-      end
-
-      context "when the piece is a black pawn" do
-        subject(:black_pawn) { described_class.create(PieceType::PAWN, Color::BLACK) }
-        context "when it is on b2" do
-          it "returns [[7, 1]]" do
-            black_pawn.position = [6, 1]
-            expect(black_pawn.possible_move_squares(board)).to eq([[7, 1]])
-          end
-        end
-
-        context "when it is on b7" do
-          it "returns [[2, 1], [3, 1]]" do
-            black_pawn.position = [1, 1]
-            expect(black_pawn.possible_move_squares(board)).to eq([[2, 1], [3, 1]])
-          end
-        end
-      end
-
-      context "when the piece is a knight" do
-        subject(:knight) { described_class.create(PieceType::KNIGHT, Color::BLACK) }
-        context "when it is on d4" do
-          it "returns [[2, 2], [2, 4], [3, 5], [5, 5], [6, 4], [6, 2], [5, 1], [3, 1]]" do
-            knight.position = [4, 3]
-            expect(knight.possible_move_squares(board).sort).to eq([[2, 2], [2, 4], [3, 5], [5, 5], [6, 4], [6, 2], [5, 1], [3, 1]].sort)
+            expect(white_pawn.possible_move_squares(real_board)).to eq([[4, 0], [4, 1]])
           end
         end
       end
     end
 
-    context "when board.within_bounds? always returns false" do
-      before do
-        allow(board).to receive(:within_bounds?).and_return(false)
+    context "when the piece is a black pawn" do
+      subject(:black_pawn) { described_class.create(PieceType::PAWN, Color::BLACK) }
+      context "when it is on b2" do
+        it "returns [[7, 1]]" do
+          real_board.restore_position("8/8/8/8/8/8/1p6/8 b - - 0 1")
+          black_pawn.position = [6, 1]
+          expect(black_pawn.possible_move_squares(real_board)).to eq([[7, 1]])
+        end
       end
 
-      context "when the piece is a white pawn" do
-        subject(:white_pawn) { described_class.create(PieceType::PAWN, Color::WHITE) }
-        context "when it is on a2" do
-          it "returns []" do
-            white_pawn.position = [6, 0]
-            expect(white_pawn.possible_move_squares(board)).to eq([])
-          end
+      context "when it is on b7" do
+        it "returns [[2, 1], [3, 1]]" do
+          real_board.restore_position("8/1p6/8/8/8/8/8/8 b - - 0 1")
+          black_pawn.position = [1, 1]
+          expect(black_pawn.possible_move_squares(real_board)).to eq([[2, 1], [3, 1]])
         end
       end
     end
 
-    context "when the piece is a bishop" do
+    context "when the piece is a knight" do
+      subject(:knight) { described_class.create(PieceType::KNIGHT, Color::BLACK) }
+      context "when it is on d4" do
+        it "returns [[2, 2], [2, 4], [3, 5], [5, 5], [6, 4], [6, 2], [5, 1], [3, 1]]" do
+          real_board.restore_position("8/8/8/8/3n4/8/8/8 b - - 0 1")
+          knight.position = [4, 3]
+          expect(knight.possible_move_squares(real_board).sort).to eq([[2, 2], [2, 4], [3, 5], [5, 5], [6, 4], [6, 2], [5, 1], [3, 1]].sort)
+        end
+      end
+    end
+
+    context "when the piece is a white bishop" do
       subject(:bishop) { described_class.create(PieceType::BISHOP, Color::WHITE) }
-      let(:real_board) { Board.new }
 
       context "when the bishop is in an empty board at position b3" do
         before do
@@ -324,17 +318,20 @@ describe Piece do
           bishop.position = [5, 1]
         end
 
-        it "returns correct diagonal squares up to edge of board and other pieces" do
-          expected_sqs = [[4, 0], [6, 0], [4, 2], [3, 3], [2, 4], [1, 5], [6, 2], [7, 3]].sort
+        it "returns correct diagonal squares up to edge of board" do
+          expected_sqs = [[4, 0], [6, 0], [4, 2], [3, 3], [2, 4], [6, 2], [7, 3]].sort
 
           expect(bishop.possible_move_squares(real_board).sort).to eq(expected_sqs)
+        end
+
+        it "does not include the white king's square" do
+          expect(bishop.possible_move_squares(real_board).include?([1, 5])).to eq(false)
         end
       end
     end
 
-    context "when the piece is a rook" do
+    context "when the piece is a white rook" do
       subject(:rook) { described_class.create(PieceType::ROOK, Color::WHITE) }
-      let(:real_board) { Board.new }
 
       context "when the rook is at position h1 with kings at h4 and h5 " do
         before do
@@ -348,12 +345,15 @@ describe Piece do
 
           expect(rook.possible_move_squares(real_board).sort).to eq(expected_sqs)
         end
+
+        it "does not include the white king's square" do
+          expect(rook.possible_move_squares(real_board).include?([3, 7])).to eq(false)
+        end
       end
     end
 
-    context "when the piece is a queen" do
+    context "when the piece is a black queen" do
       subject(:queen) { described_class.create(PieceType::QUEEN, Color::BLACK) }
-      let(:real_board) { Board.new }
 
       context "when the queen is in an empty board at position e8" do
         before do
@@ -376,10 +376,18 @@ describe Piece do
           queen.position = [0, 4]
         end
 
-        it "returns correct diagonal and orthogonal squares up to edge of board or other pieces" do
-          expected_sqs = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 5], [0, 6], [0, 7], [1, 4], [2, 4], [1, 3], [2, 2], [3, 1], [4, 0], [1, 5], [2, 6]].sort
+        it "returns correct diagonal and orthogonal squares up to edge of board" do
+          expected_sqs = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 5], [0, 6], [0, 7], [1, 4], [2, 4], [1, 3], [2, 2], [3, 1], [4, 0], [1, 5]].sort
 
           expect(queen.possible_move_squares(real_board).sort).to eq(expected_sqs)
+        end
+
+        it "does not include the black king's square" do
+          expect(queen.possible_move_squares(real_board).include?([2, 6])).to eq(false)
+        end
+
+        it "includes the white king's square" do
+          expect(queen.possible_move_squares(real_board).include?([2, 4])).to eq(true)
         end
       end
     end
