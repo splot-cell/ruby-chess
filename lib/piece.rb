@@ -59,8 +59,6 @@ end
 
 class SlidingPiece < Piece
   def accessible_squares(translation_list, board)
-    return nil unless sliding?
-
     arr = []
     translation_list.each do |t|
       scale = 1
