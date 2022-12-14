@@ -254,12 +254,27 @@ describe Piece do
         context "when an enemy piece is on b4" do
           before do
             real_board.restore_position("8/8/8/8/1n6/P7/8/8 w - - 0 1")
+            white_pawn.position = [5, 0]
           end
 
           it "returns [[4, 0], [4, 1]]" do
-            white_pawn.position = [5, 0]
             expect(white_pawn.possible_move_squares(real_board)).to eq([[4, 0], [4, 1]])
           end
+        end
+      end
+
+      context "when en passant is executable" do
+        before do
+          real_board.restore_position("rnbqkbnr/pppp1ppp/8/3Pp3/8/8/PPP1PPPP/RNBQKBNR w KQkq e6 0 1")
+          white_pawn.position = [3, 3]
+        end
+
+        it "includes the en passant square" do
+          expect(white_pawn.possible_move_squares(real_board).include?([2, 4])).to eq(true)
+        end
+
+        it "returns [[2, 3], [2, 4]]" do
+          expect(white_pawn.possible_move_squares(real_board)).to eq([[2, 3], [2, 4]])
         end
       end
     end
