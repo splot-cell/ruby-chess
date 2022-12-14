@@ -31,7 +31,10 @@ class Piece
   end
 
   def possible_move_squares(board)
-    accessible_squares(move_translations, board)
+    valid_moves = accessible_squares(move_translations, board).keep_if { |sq| board.square_empty?(sq) }
+    valid_attacks = possible_attack_squares(board).keep_if { |sq| board.color_at_sq(sq) == board.opponent_color(@color) }
+
+    (valid_moves + valid_attacks).uniq
   end
 
   def possible_attack_squares(board)

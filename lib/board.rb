@@ -189,4 +189,10 @@ class Board
   def opponent_color(color)
     color == Color::WHITE ? Color::BLACK : Color::WHITE
   end
+
+  def color_at_sq(square)
+    return if square_empty?(square)
+
+    @data[square[0]][square[1]].color
+  end
 end
