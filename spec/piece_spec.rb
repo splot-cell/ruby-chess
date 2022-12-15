@@ -270,7 +270,7 @@ describe Piece do
         end
 
         it "includes the en passant square" do
-          expect(white_pawn.possible_move_squares(real_board).include?([2, 4])).to eq(true)
+          expect(white_pawn.possible_move_squares(real_board)).to include([2, 4])
         end
 
         it "returns [[2, 3], [2, 4]]" do
@@ -340,7 +340,7 @@ describe Piece do
         end
 
         it "does not include the white king's square" do
-          expect(bishop.possible_move_squares(real_board).include?([1, 5])).to eq(false)
+          expect(bishop.possible_move_squares(real_board)).not_to include([1, 5])
         end
       end
     end
@@ -362,7 +362,7 @@ describe Piece do
         end
 
         it "does not include the white king's square" do
-          expect(rook.possible_move_squares(real_board).include?([3, 7])).to eq(false)
+          expect(rook.possible_move_squares(real_board)).not_to include([3, 7])
         end
       end
     end
@@ -398,11 +398,11 @@ describe Piece do
         end
 
         it "does not include the black king's square" do
-          expect(queen.possible_move_squares(real_board).include?([2, 6])).to eq(false)
+          expect(queen.possible_move_squares(real_board)).not_to include([2, 6])
         end
 
         it "includes the white king's square" do
-          expect(queen.possible_move_squares(real_board).include?([2, 4])).to eq(true)
+          expect(queen.possible_move_squares(real_board)).to include([2, 4])
         end
       end
     end
