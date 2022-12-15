@@ -122,8 +122,6 @@ class Board
 
   # generate move_pool(color)
   # for each piece, try all its direction vectors and add move to pool
-  # if pawn, also try attacking direction vectors
-  # depending on castling state, check to see if castling squares are open, if so, add move to move pool
   # validate each move in move pool does not leave you in check
   # set promotion flag if move is pawn to opposing final rank
 
