@@ -413,7 +413,7 @@ describe Piece do
       context "when queenside castling is available" do
         before do
           real_board.restore_position("rn1qkbnr/ppp3pp/3p1p2/3PpbB1/8/2NQ4/PPP1PPPP/R3KBNR b KQkq - 0 1")
-          king.position = [7 ,4]
+          king.position = [7, 4]
         end
 
         it "returns all squares that can be stepped to" do
