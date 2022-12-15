@@ -195,4 +195,11 @@ class Board
 
     @data[square[0]][square[1]].color
   end
+
+  def rook_starting_squares(color)
+    {
+      Color::WHITE => [[7, 0], [7, 7]],
+      Color::BLACK => [[0, 0], [0, 7]]
+    }[color]
+  end
 end
