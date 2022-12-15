@@ -424,8 +424,57 @@ describe Piece do
           expect(king.possible_move_squares(real_board)).to include([7, 2])
         end
 
-        it "returns [[6, 3], [7, 3], [7, 2]]" do
+        it "contains no additional squares" do
           expect(king.possible_move_squares(real_board)).to eq([[6, 3], [7, 3], [7, 2]])
+        end
+      end
+
+      context "when no castling is available" do
+        before do
+          real_board.restore_position("rn1qkbnr/ppp3pp/3p1p2/3PpbB1/8/2NQ4/PPP1PPPP/R3KBNR b Kkq - 0 1")
+          king.position = [7, 4]
+        end
+
+        it "returns only the squares that can be stepped to" do
+          expect(king.possible_move_squares(real_board)).to eq([[6, 3], [7, 3]])
+        end
+      end
+    end
+
+    context "when the piece is a black king" do
+      subject(:king) { described_class.create(PieceType::KING, Color::BLACK) }
+
+      context "when queenside and kingside castling is available" do
+        before do
+          real_board.restore_position("r3k2r/pppqb1pp/n2p1p1n/3PpbB1/8/2NQ4/PPP1PPPP/R3KBNR w Kkq - 0 1")
+          king.position = [0 ,4]
+        end
+
+        it "returns all squares that can be stepped to" do
+          expect(king.possible_move_squares(real_board)).to include([0, 3], [0, 5], [1, 5])
+        end
+
+        it "includes the queenside castling square" do
+          expect(king.possible_move_squares(real_board)).to include([0, 2])
+        end
+
+        it "includes the kingside castling square" do
+          expect(king.possible_move_squares(real_board)).to include([0, 6])
+        end
+
+        it "contains no other squares" do
+          expect(king.possible_move_squares(real_board).sort).to eq([[0, 3], [0, 5], [1, 5], [0, 2], [0, 6]].sort)
+        end
+      end
+
+      context "when no castling is available" do
+        before do
+          real_board.restore_position("r2bk1r1/pppq2pp/n2p1p1n/3PpbB1/8/2NQ4/PPP1PPPP/R3KBNR w Kq - 0 1")
+          king.position = [0, 4]
+        end
+
+        it "returns only the squares that can be stepped to" do
+          expect(king.possible_move_squares(real_board).sort).to eq([[1, 4], [1, 5], [0, 5]].sort)
         end
       end
     end
