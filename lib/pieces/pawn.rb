@@ -26,7 +26,10 @@ class Pawn < SteppingPiece
 
   def possible_move_squares(board)
     valid_moves = accessible_squares(move_translations, board).keep_if { |sq| board.square_empty?(sq) }
-    valid_attacks = threatened_squares(board).keep_if { |sq| board.color_at_sq(sq) == board.opponent_color(@color) || board.en_passant_target == sq }
+    valid_attacks = threatened_squares(board).keep_if do |sq|
+      board.color_at_sq(sq) == board.opponent_color(@color) ||
+        board.en_passant_target == sq
+    end
 
     (valid_moves + valid_attacks).uniq
   end
