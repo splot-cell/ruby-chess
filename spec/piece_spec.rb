@@ -406,6 +406,29 @@ describe Piece do
         end
       end
     end
+
+    context "when the piece is a white king" do
+      subject(:king) { described_class.create(PieceType::KING, Color::WHITE) }
+
+      context "when queenside castling is available" do
+        before do
+          real_board.restore_position("rn1qkbnr/ppp3pp/3p1p2/3PpbB1/8/2NQ4/PPP1PPPP/R3KBNR b KQkq - 0 1")
+          king.position = [7 ,4]
+        end
+
+        it "returns all squares that can be stepped to" do
+          expect(king.possible_move_squares(real_board)).to include([6, 3], [7, 3])
+        end
+
+        it "includes the queenside castling square" do
+          expect(king.possible_move_squares(real_board)).to include([7, 2])
+        end
+
+        it "returns [[6, 3], [7, 3], [7, 2]]" do
+          expect(king.possible_move_squares(real_board)).to eq([[6, 3], [7, 3], [7, 2]])
+        end
+      end
+    end
   end
 
   describe "#threatened_squares" do
