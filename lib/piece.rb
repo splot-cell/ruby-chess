@@ -63,14 +63,11 @@ class SlidingPiece < Piece
   def accessible_squares(translation_list, board)
     arr = []
     translation_list.each do |t|
-      scale = 1
-      while scale < 9
+      1.upto(8) do |scale|
         current_sq = translated_position(scale_translation(scale, t))
         arr << current_sq if board.within_bounds?(current_sq)
 
         break unless board.within_bounds?(current_sq) && board.square_empty?(current_sq)
-
-        scale += 1
       end
     end
     arr
