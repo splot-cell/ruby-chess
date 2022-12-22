@@ -207,4 +207,11 @@ class Board
       Color::BLACK => [[0, 0], [0, 7]]
     }[color]
   end
+
+  def promotion_rank(color)
+    {
+      Color::WHITE => 0,
+      Color::BLACK => 7
+    }[color]
+  end
 end
