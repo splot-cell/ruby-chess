@@ -5,7 +5,24 @@ require_relative "constants"
 class Move
   include PieceType
 
-  attr_accessor :promotion, :translation_list, :pawn_double_push, :piece
+  attr_accessor :piece, :translation_list, :promotion, :pawn_double_push
+
+  def initialize(piece, translation_list, board)
+    @piece = piece
+    @translation_list = translation_list
+
+    @promotion = false
+    @pawn_double_push = false
+
+    pawn_flags(board) if piece.type == PAWN
+  end
+
+  def pawn_flags(board)
+    # if the target square is the promotion rank of @piece
+    @promotion = true if translation_list[1][1] == board.promotion_rank(piece.color)
+    # if the difference in rank is 2
+    @pawn_double_push = true if (translation_list[0][1] - translation_list[1][1]).abs == 2
+  end
 
   def update_board_state(board)
     # TO DO
