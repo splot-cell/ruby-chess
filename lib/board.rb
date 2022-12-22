@@ -121,9 +121,16 @@ class Board
   end
 
   # generate move_pool(color)
-  # for each piece, try all its direction vectors and add move to pool
+  # for each piece add moves to pool
   # validate each move in move pool does not leave you in check
-  # set promotion flag if move is pawn to opposing final rank
+  def generate_move_pool(color = active_color)
+    @move_pool = []
+    @data.flatten.each do |sq|
+      next if sq.nil?
+
+      @move_pool += sq.moves.keep_if { |move| move.valid? } if sq.color == color
+    end
+  end
 
   def translate_squares(translations)
     translations.each do |translation|
