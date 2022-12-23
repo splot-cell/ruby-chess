@@ -21,7 +21,7 @@ class Move
     # if the target square is the promotion rank of @piece
     @promotion = true if translation_list[1][1] == board.promotion_rank(piece.color)
     # if the difference in rank is 2
-    @pawn_double_push = true if (translation_list[0][1] - translation_list[1][1]).abs == 2
+    @pawn_double_push = true if (translation_list[0][0] - translation_list[1][0]).abs == 2
   end
 
   def update_board_state(board)
