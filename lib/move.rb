@@ -26,7 +26,7 @@ class Move
 
   def pawn_flags(board)
     # if the target square is the promotion rank of @piece
-    @promotion = true if translation_list[0][1][1] == board.promotion_rank(piece.color)
+    @promotion = true if translation_list[0][1][0] == board.promotion_rank(piece.color)
     # if the difference in rank is 2
     @pawn_double_push = true if (translation_list[0][0][0] - translation_list[0][1][0]).abs == 2
   end
