@@ -10,7 +10,7 @@ describe Move do
 
     context "when the piece is a pawn" do
       context "when the move is a single square push" do
-        let(:list) { [[6, 2], [5, 2]] }
+        let(:list) { [[[6, 2], [5, 2]]] }
         before do
           allow(piece).to receive(:type).and_return(PieceType::PAWN)
           allow(piece).to receive(:color)
@@ -31,7 +31,7 @@ describe Move do
       end
 
       context "when the move is a double square push for white" do
-        let(:list) { [[6, 4], [4, 4]] }
+        let(:list) { [[[6, 4], [4, 4]]] }
         before do
           allow(piece).to receive(:type).and_return(PieceType::PAWN)
           allow(piece).to receive(:color)
@@ -48,7 +48,7 @@ describe Move do
       end
 
       context "when the move is a double square push for black" do
-        let(:list) { [[1, 1], [3, 1]] }
+        let(:list) { [[[1, 1], [3, 1]]] }
         before do
           allow(piece).to receive(:type).and_return(PieceType::PAWN)
           allow(piece).to receive(:color)
@@ -63,6 +63,16 @@ describe Move do
           expect(move.promotion).to eq(false)
         end
       end
+
+      context "when the move is a promotion for white" do
+      end
+
+      context "when the move is a promotion for black" do
+      end
+    end
+
+    context "when the piece is a knight" do
+
     end
   end
 end

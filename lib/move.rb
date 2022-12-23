@@ -1,15 +1,22 @@
 # frozen_string_literal: true
 
 require_relative "constants"
+require_relative "pieces/pawn"
+require_relative "pieces/knight"
+require_relative "pieces/bishop"
+require_relative "pieces/rook"
+require_relative "pieces/queen"
+require_relative "pieces/king"
 
 class Move
   include PieceType
 
-  attr_accessor :piece, :translation_list, :promotion, :pawn_double_push
+  attr_accessor :piece, :translation_list, :promotion, :pawn_double_push, :promotion_value
 
-  def initialize(piece, translation_list, board)
+  def initialize(piece, translation_list, board, promotion_value = QUEEN)
     @piece = piece
     @translation_list = translation_list
+    @promotion_value = promotion_value
 
     @promotion = false
     @pawn_double_push = false
@@ -19,9 +26,9 @@ class Move
 
   def pawn_flags(board)
     # if the target square is the promotion rank of @piece
-    @promotion = true if translation_list[1][1] == board.promotion_rank(piece.color)
+    @promotion = true if translation_list[0][1][1] == board.promotion_rank(piece.color)
     # if the difference in rank is 2
-    @pawn_double_push = true if (translation_list[0][0] - translation_list[1][0]).abs == 2
+    @pawn_double_push = true if (translation_list[0][0][0] - translation_list[0][1][0]).abs == 2
   end
 
   def update_board_state(board)
@@ -43,6 +50,8 @@ class Move
     update_board_state(board)
 
     board.translate_squares(translation_list)
+
+    # if @promotion, call board.replace_piece with promotion_target
   end
 
   def valid?(board)
@@ -59,9 +68,14 @@ class Move
     ret
   end
 
-  # Finds the square between the start square and finish square in a list of
-  # translations. For use with a pawn_double_push move
+  # Finds the square between the start square and finish square for the first
+  # translation. For use with a pawn_double_push move
   def en_passant_target
-    translation_list[0].reduce { |av, v| [(av[0] + v[0]) / 2, (av[1] + v[1]) / 2] }
+    translation_list[0][0].reduce { |av, v| [(av[0] + v[0]) / 2, (av[1] + v[1]) / 2] }
+  end
+
+  # Creates a piece to replace the piece being promoted
+  def promotion_target(value)
+    Piece.create(value, @piece.color, translation_list[0][1])
   end
 end
