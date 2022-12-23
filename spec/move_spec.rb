@@ -65,9 +65,37 @@ describe Move do
       end
 
       context "when the move is a promotion for white" do
+        let(:list) { [[[1, 2], [0, 2]]] }
+        before do
+          allow(piece).to receive(:type).and_return(PieceType::PAWN)
+          allow(piece).to receive(:color).and_return(Color::WHITE)
+          allow(board).to receive(:promotion_rank).and_return(0)
+        end
+
+        it "creates an object with @pawn_double_push equal to false" do
+          expect(move.pawn_double_push).to eq(false)
+        end
+
+        it "creates an object with @promotion equal to true" do
+          expect(move.promotion).to eq(true)
+        end
       end
 
       context "when the move is a promotion for black" do
+        let(:list) { [[[6, 3], [7, 4]]] }
+        before do
+          allow(piece).to receive(:type).and_return(PieceType::PAWN)
+          allow(piece).to receive(:color).and_return(Color::BLACK)
+          allow(board).to receive(:promotion_rank).and_return(7)
+        end
+
+        it "creates an object with @pawn_double_push equal to false" do
+          expect(move.pawn_double_push).to eq(false)
+        end
+
+        it "creates an object with @promotion equal to true" do
+          expect(move.promotion).to eq(true)
+        end
       end
     end
 
