@@ -11,7 +11,7 @@ require_relative "pieces/king"
 class Move
   include PieceType
 
-  attr_accessor :piece, :translation_list, :promotion, :pawn_double_push, :promotion_value
+  attr_accessor :piece, :translation_list, :promotion, :pawn_double_push
 
   def initialize(piece, translation_list, board, promotion_value = QUEEN)
     @piece = piece
