@@ -99,8 +99,25 @@ describe Move do
       end
     end
 
-    context "when the piece is a knight" do
+    context "when the piece is not a pawn" do
+      let(:list) { [[[6, 0], [0, 6]]] }
+        before do
+          allow(piece).to receive(:type).and_return(PieceType::BISHOP)
+          allow(piece).to receive(:color)
+          allow(board).to receive(:promotion_rank)
+        end
 
+        it "creates a Move object" do
+          expect(move).to be_a(Move)
+        end
+
+        it "creates an object with @pawn_double_push equal to false" do
+          expect(move.pawn_double_push).to eq(false)
+        end
+
+        it "creates an object with @promotion equal to false" do
+          expect(move.promotion).to eq(false)
+        end
     end
   end
 end
