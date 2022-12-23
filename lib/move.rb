@@ -75,7 +75,7 @@ class Move
   end
 
   # Creates a piece to replace the piece being promoted
-  def promotion_target(value)
-    Piece.create(value, @piece.color, translation_list[0][1])
+  def promotion_target
+    Piece.create(@promotion_value, piece.color, translation_list[0][1])
   end
 end
