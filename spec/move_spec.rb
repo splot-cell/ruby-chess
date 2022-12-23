@@ -30,7 +30,7 @@ describe Move do
         end
       end
 
-      context "when the move is a double square push" do
+      context "when the move is a double square push for white" do
         let(:list) { [[6, 4], [4, 4]] }
         before do
           allow(piece).to receive(:type).and_return(PieceType::PAWN)
@@ -38,7 +38,24 @@ describe Move do
           allow(board).to receive(:promotion_rank)
         end
 
-        it "creates an objet with @pawn_double_push equal to true" do
+        it "creates an object with @pawn_double_push equal to true" do
+          expect(move.pawn_double_push).to eq(true)
+        end
+
+        it "creates an object with @promotion equal to false" do
+          expect(move.promotion).to eq(false)
+        end
+      end
+
+      context "when the move is a double square push for black" do
+        let(:list) { [[1, 1], [3, 1]] }
+        before do
+          allow(piece).to receive(:type).and_return(PieceType::PAWN)
+          allow(piece).to receive(:color)
+          allow(board).to receive(:promotion_rank)
+        end
+
+        it "creates an object with @pawn_double_push equal to true" do
           expect(move.pawn_double_push).to eq(true)
         end
 
