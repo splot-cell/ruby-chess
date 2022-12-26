@@ -150,18 +150,29 @@ describe Move do
     end
 
     context "when the move is a pawn promotion" do
+      before do
+        board.restore_position("2r3k1/ppBP1ppp/2p5/2n1pb2/1P6/N1P2P2/P5PP/R3K1R1 w Q - 0 1")
+      end
+      let(:piece) { board.instance_variable_get(:@data)[1][3] }
+      let(:list) { [[[1, 3], [0, 3]]] }
+
       context "when the promotion target is a queen" do
         it "changes the piece to a queen" do
+          expect { move.execute(board) }.to change { board.encode_fen_position }.to("2rQ2k1/ppB2ppp/2p5/2n1pb2/1P6/N1P2P2/P5PP/R3K1R1")
         end
 
         context "when the movement is a capture" do
+          let(:list) { [[[1, 3], [0, 2]]] }
           it "changes the piece to a queen" do
+            expect { move.execute(board) }.to change { board.encode_fen_position }.to("2Q3k1/ppB2ppp/2p5/2n1pb2/1P6/N1P2P2/P5PP/R3K1R1")
           end
         end
       end
 
       context "when the promotion target is a knight" do
+        subject(:move) { described_class.new(piece, list, board, PieceType::KNIGHT) }
         it "changes the piece to a knight" do
+          expect { move.execute(board) }.to change { board.encode_fen_position }.to("2rN2k1/ppB2ppp/2p5/2n1pb2/1P6/N1P2P2/P5PP/R3K1R1")
         end
       end
     end
