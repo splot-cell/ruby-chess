@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 require_relative "../lib/move"
+require_relative "../lib/board"
 
 describe Move do
   describe "#initialize" do
     let(:piece) { double("piece") }
     let(:board) { double("board") }
-    subject(:move) { Move.new(piece, list, board) }
+    subject(:move) { described_class.new(piece, list, board) }
 
     context "when the piece is a pawn" do
       context "when the move is a single square push" do
@@ -117,6 +118,43 @@ describe Move do
 
       it "creates an object with @promotion equal to false" do
         expect(move.promotion).to eq(false)
+      end
+    end
+  end
+
+  describe "#execute" do
+    let(:board) { Board.new }
+    subject(:move) { described_class.new(piece, list, board) }
+    context "when the move is a pawn double push" do
+      before do
+        board.restore_position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+      end
+      let(:piece) { board.instance_variable_get(:@data)[6][4] }
+      let(:list) { [[[6, 4], [4, 4]]] }
+      it "sets the en passant flag to the correct square" do
+        expect { move.execute(board) }.to change { board.en_passant_target }.from(nil).to([5, 4])
+      end
+    end
+
+    context "when the move is not a pawn double push following a double push" do
+      it "unsets the en passant flag" do
+      end
+    end
+
+    context "when the move is a pawn promotion" do
+      context "when the promotion target is a queen" do
+        it "changes the piece to a queen" do
+        end
+
+        context "when the movement is a capture" do
+          it "changes the piece to a queen" do
+          end
+        end
+      end
+
+      context "when the promotion target is a knight" do
+        it "changes the piece to a knight" do
+        end
       end
     end
   end
