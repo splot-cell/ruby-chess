@@ -52,6 +52,7 @@ class Move
     board.translate_squares(translation_list)
 
     # if @promotion, call board.replace_piece with promotion_target
+    board.replace_piece(translation_list[0][1], promotion_target)
   end
 
   def valid?(board)

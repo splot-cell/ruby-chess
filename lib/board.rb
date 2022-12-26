@@ -87,6 +87,10 @@ class Board
     true
   end
 
+  def replace_piece(sq, piece)
+    @data[sq[0]][sq[1]] = piece
+  end
+
   # game_over?
   # after generating move pool, there are zero valid moves
   # if one color is in check -> mate
