@@ -131,13 +131,21 @@ describe Move do
       end
       let(:piece) { board.instance_variable_get(:@data)[6][4] }
       let(:list) { [[[6, 4], [4, 4]]] }
+
       it "sets the en passant flag to the correct square" do
         expect { move.execute(board) }.to change { board.en_passant_target }.from(nil).to([5, 4])
       end
     end
 
-    context "when the move is not a pawn double push following a double push" do
+    context "when the move is not a pawn double push but follows a double push" do
+      before do
+        board.restore_position("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1")
+      end
+      let(:piece) { board.instance_variable_get(:@data)[1][4] }
+      let(:list) { [[[1, 4], [2, 4]]] }
+
       it "unsets the en passant flag" do
+        expect { move.execute(board) }.to change { board.en_passant_target }.from([5, 4]).to(nil)
       end
     end
 
