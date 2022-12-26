@@ -6,7 +6,8 @@ require_relative "fen"
 class Board
   include FEN
 
-  attr_reader :en_passant_target, :current_player
+  attr_reader :current_player
+  attr_accessor :en_passant_target
 
   def initialize(data = Array.new(8) { Array.new(8) })
     @data = data

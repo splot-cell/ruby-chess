@@ -71,7 +71,9 @@ class Move
   # Finds the square between the start square and finish square for the first
   # translation. For use with a pawn_double_push move
   def en_passant_target
-    translation_list[0][0].reduce { |av, v| [(av[0] + v[0]) / 2, (av[1] + v[1]) / 2] }
+    start_i = translation_list[0][0][0]
+    end_i = translation_list[0][1][0]
+    [(start_i + end_i) / 2, translation_list[0][0][1]]
   end
 
   # Creates a piece to replace the piece being promoted
