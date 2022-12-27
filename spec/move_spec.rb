@@ -176,5 +176,17 @@ describe Move do
         end
       end
     end
+
+    context "when the move is not a promotion" do
+      before do
+        board.restore_position("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1")
+      end
+      let(:piece) { board.instance_variable_get(:@data)[1][4] }
+      let(:list) { [[[1, 4], [2, 4]]] }
+
+      it "moves the piece" do
+        expect { move.execute(board) }.to change { board.encode_fen_position }.to("rnbqkbnr/pppp1ppp/4p3/8/4P3/8/PPPP1PPP/RNBQKBNR")
+      end
+    end
   end
 end
