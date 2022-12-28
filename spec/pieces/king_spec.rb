@@ -16,7 +16,7 @@ describe King do
         end
 
         it "returns 8 moves" do
-          expect(king.moves.length).to eq(8)
+          expect(king.moves(board).length).to eq(8)
         end
       end
 
@@ -26,7 +26,7 @@ describe King do
         end
 
         it "returns 8 moves" do
-          expect(king.moves.length).to eq(8)
+          expect(king.moves(board).length).to eq(8)
         end
       end
 
@@ -36,7 +36,7 @@ describe King do
         end
 
         it "requrns 7 moves" do
-          expect(king.moves.length).to eq(7)
+          expect(king.moves(board).length).to eq(7)
         end
       end
     end

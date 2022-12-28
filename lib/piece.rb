@@ -40,6 +40,15 @@ class Piece
     accessible_squares(attack_translations, board)
   end
 
+  def moves(board)
+    mvs = []
+    possible_move_squares(board).each do |target_sq|
+      translation = [[position, target_sq]]
+      mvs << Move.new(self, translation, board)
+    end
+    mvs
+  end
+
   private
 
   def translated_position(trans_matrix)
