@@ -43,8 +43,7 @@ class Piece
   def moves(board)
     mvs = []
     possible_move_squares(board).each do |target_sq|
-      translation = [[position, target_sq]]
-      mvs << Move.new(self, translation, board)
+      mvs << Move.new(self, target_sq, board)
     end
     mvs
   end

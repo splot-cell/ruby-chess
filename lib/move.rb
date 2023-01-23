@@ -13,9 +13,9 @@ class Move
 
   attr_accessor :piece, :translation_list, :promotion, :pawn_double_push
 
-  def initialize(piece, translation_list, board, promotion_value = QUEEN)
+  def initialize(piece, target_square, board, promotion_value = QUEEN)
     @piece = piece
-    @translation_list = translation_list
+    @translation_list = [[piece.position, target_square]]
     @promotion_value = promotion_value
 
     @promotion = false
