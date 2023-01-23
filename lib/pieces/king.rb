@@ -26,10 +26,10 @@ class King < SteppingPiece
     step_moves = accessible_squares(move_translations, board).keep_if do |sq|
       board.square_empty?(sq) || board.color_at_sq(sq) == board.opponent_color(@color)
     end
-    step_moves.concat(possible_castling_moves(board))
+    step_moves.concat(possible_castling_squares(board))
   end
 
-  def possible_castling_moves(board)
+  def possible_castling_squares(board)
     castling_moves = []
     board.rook_starting_squares(color).each do |sq|
       castling_moves << castling_square(sq) if board.castling_valid?(sq)
