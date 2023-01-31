@@ -35,13 +35,32 @@ describe King do
           board.restore_position("8/8/8/8/5P2/4K3/8/8 w - - 0 1")
         end
 
-        it "requrns 7 moves" do
+        it "returns 7 moves" do
           expect(king.moves(board).length).to eq(7)
         end
       end
     end
 
     context "when the king is in its starting position" do
+      context "when castling is not possible" do
+        before do
+          board.restore_position("rnbqkbnr/pppppppp/8/8/3P4/3QP3/PPP1BPPP/RNB1K1NR b KQkq - 0 1")
+        end
+
+        it "returns 3 moves" do
+          expect(king.moves(board).length).to eq(3)
+        end
+      end
+
+      context "when castling is possible" do
+        before do
+          board.restore_position("rnbqkbnr/pppppppp/8/8/3P4/3QPN2/PPP1BPPP/RNB1K2R b KQkq - 0 1")
+        end
+
+        it "returns 4 moves" do
+          expect(king.moves(board).length).to eq(4)
+        end
+      end
     end
   end
 end
