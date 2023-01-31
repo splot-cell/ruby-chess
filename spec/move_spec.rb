@@ -126,6 +126,35 @@ describe Move do
         expect(move.promotion).to eq(false)
       end
     end
+
+    context "when the piece is a white king" do
+      before do
+        allow(piece).to receive(:type).and_return(PieceType::KING)
+        allow(piece).to receive(:color).and_return(Color::WHITE)
+      end
+
+      context "when the piece is in its starting position" do
+        before do
+          allow(piece).to receive(:position).and_return([7, 4])
+        end
+
+        context "when the move is a basic step" do
+          let(:target_sq) { [7, 5] }
+
+          it "creates a Move object with a translation list containing the starting square and target square" do
+            expect(move.translation_list).to eq([[[7, 4], [7, 5]]])
+          end
+        end
+
+        context "when the move is a castle" do
+          let(:target_sq) { [7, 6] }
+
+          it "creates a Move object with a translation list containing the king's move and the rook's move" do
+            expect(move.translation_list).to eq([[[7, 4], [7, 6]], [[7, 7], [7, 5]]])
+          end
+        end
+      end
+    end
   end
 
   describe "#execute" do
