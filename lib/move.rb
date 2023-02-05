@@ -15,13 +15,31 @@ class Move
 
   def initialize(piece, target_square, board, promotion_value = QUEEN)
     @piece = piece
-    @translation_list = [[piece.position, target_square]]
+    @translation_list = create_translation_list(target_square)
     @promotion_value = promotion_value
 
     @promotion = false
     @pawn_double_push = false
 
     pawn_flags(board) if piece.type == PAWN
+  end
+
+  def create_translation_list(target_sq)
+    # Check if the piece is a king moving left/right by two squares
+    return [[piece.position, target_sq]] unless piece.type == KING && (piece.position[1] - target_sq[1]).abs == 2
+
+    # If so, create a castling-specific translation_list
+    create_castling_translation_list(target_sq)
+  end
+
+  def create_castling_translation_list(target_sq)
+    rank = target_sq[0]
+
+    if target_sq[1] == 6
+      [[piece.position, target_sq], [[rank, 7], [rank, 5]]]
+    else
+      [[piece.position, target_sq], [[rank, 0], [rank, 3]]]
+    end
   end
 
   def pawn_flags(board)

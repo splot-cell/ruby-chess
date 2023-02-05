@@ -146,11 +146,48 @@ describe Move do
           end
         end
 
-        context "when the move is a castle" do
+        context "when the move is a kingside castle" do
           let(:target_sq) { [7, 6] }
 
           it "creates a Move object with a translation list containing the king's move and the rook's move" do
             expect(move.translation_list).to eq([[[7, 4], [7, 6]], [[7, 7], [7, 5]]])
+          end
+        end
+
+        context "when the move is a queenside castle" do
+          let(:target_sq) { [7, 2] }
+
+          it "creates a Move object with a translation list containing the king's move and the rook's move" do
+            expect(move.translation_list).to eq([[[7, 4], [7, 2]], [[7, 0], [7, 3]]])
+          end
+        end
+      end
+    end
+
+    context "when the piece is a black king" do
+      before do
+        allow(piece).to receive(:type).and_return(PieceType::KING)
+        allow(piece).to receive(:color).and_return(Color::BLACK)
+      end
+
+      context "when the piece is in its starting position" do
+        before do
+          allow(piece).to receive(:position).and_return([0, 4])
+        end
+
+        context "when the move is a kingside castle" do
+          let(:target_sq) { [0, 6] }
+
+          it "creates a Move object with a translation list containing the king's move and the rook's move" do
+            expect(move.translation_list).to eq([[[0, 4], [0, 6]], [[0, 7], [0, 5]]])
+          end
+        end
+
+        context "when the move is a queenside castle" do
+          let(:target_sq) { [0, 2] }
+
+          it "creates a Move object with a translation list containing the king's move and the rook's move" do
+            expect(move.translation_list).to eq([[[0, 4], [0, 2]], [[0, 0], [0, 3]]])
           end
         end
       end
