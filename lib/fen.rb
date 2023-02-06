@@ -27,6 +27,10 @@ module FEN
     char.match?(/[A-Z]/) ? Color::WHITE : Color::BLACK
   end
 
+  def decode_fen_active_color(char)
+    char == "w" ? Color::WHITE : Color::BLACK
+  end
+
   def fen_active_color
     @current_player == Color::WHITE ? "w" : "b"
   end
@@ -56,7 +60,7 @@ module FEN
     arr = fen_str.split
     {
       piece_placement_data: decode_fen_position(arr[0]),
-      active_color: decode_fen_color(arr[1]),
+      active_color: decode_fen_active_color(arr[1]),
       castling_avail: arr[2],
       en_passant_target: decode_fen_en_passant(arr[3]),
       half_move_clk: arr[4].to_i,
