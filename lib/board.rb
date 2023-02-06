@@ -94,6 +94,10 @@ class Board
   # after generating move pool, there are zero valid moves
   # if one color is in check -> mate
   # if not -> stalemate
+  def game_over?
+    generate_move_pool
+    @move_pool.zero?
+  end
 
   # sq under attack?(sq, color)
   # checks if any of the pieces of color are attacking sq
