@@ -536,4 +536,17 @@ describe Board do
       end
     end
   end
+
+  describe "#generate_move_pool" do
+    context "when the game is in its starting position" do
+      before do
+        board.restore_position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+      end
+
+      it "populates @move_pool with 20 moves" do
+        board.generate_move_pool
+        expect(board.instance_variable_get(:@move_pool).length).to eq(20)
+      end
+    end
+  end
 end
