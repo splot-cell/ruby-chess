@@ -61,7 +61,6 @@ class Board
   # checks if castling_avail
   # checks if squares between rook and king are free
   # checks if squares are under attack
-  # NEED TO ALSO CHECK IF ROOK OR KING UNDER ATTACK
   def castling_valid?(rook_square)
     black_king_square = [0, 4]
     white_king_square = [7, 4]
