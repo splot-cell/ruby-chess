@@ -27,6 +27,10 @@ module FEN
     char.match?(/[A-Z]/) ? Color::WHITE : Color::BLACK
   end
 
+  def fen_active_color
+    @current_player == Color::WHITE ? "w" : "b"
+  end
+
   def encode_fen_piece(piece)
     {
       Color::BLACK => {
@@ -60,6 +64,21 @@ module FEN
     }
   end
 
+  def encode_game_state
+    state = encode_fen_position
+    state += " "
+    state += fen_active_color
+    state += " "
+    state += @castling_avail
+    state += " "
+    state += encode_fen_en_passant
+    state += " "
+    state += @half_move_clk.to_s
+    state += " "
+    state += @full_move_num.to_s
+    state
+  end
+
   def empty_square?(char)
     char.match?(/[1-8]/)
   end
@@ -72,6 +91,12 @@ module FEN
     return if str == "-"
 
     [num_to_rank_index(str[1]), letter_to_file_index(str[0])]
+  end
+
+  def encode_fen_en_passant
+    return "-" if @en_passant_target.nil?
+
+    file_index_to_letter(@en_passant_target[0]) + rank_index_to_number_str(@en_passant_target[1])
   end
 
   def decode_fen_position(fen_str)
