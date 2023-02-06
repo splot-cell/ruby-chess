@@ -83,7 +83,7 @@ module FEN
     state
   end
 
-  def empty_square?(char)
+  def fen_empty_square?(char)
     char.match?(/[1-8]/)
   end
 
@@ -109,7 +109,7 @@ module FEN
       rank = []
       file = 0
       r.split("").each do |char|
-        if empty_square?(char)
+        if fen_empty_square?(char)
           char.to_i.times { rank << nil }
           file += char.to_i
         else
