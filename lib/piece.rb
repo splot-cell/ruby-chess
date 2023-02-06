@@ -55,6 +55,10 @@ class Piece
     y = @position[1] + trans_matrix[1]
     [x, y]
   end
+
+  def scale_translation(scale, trans_matrix)
+    [scale * trans_matrix[0], scale * trans_matrix[1]]
+  end
 end
 
 class SteppingPiece < Piece
@@ -83,11 +87,5 @@ class SlidingPiece < Piece
 
   def sliding?
     true
-  end
-
-  private
-
-  def scale_translation(scale, trans_matrix)
-    [scale * trans_matrix[0], scale * trans_matrix[1]]
   end
 end
