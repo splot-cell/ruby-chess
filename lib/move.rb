@@ -21,6 +21,8 @@ class Move
     @promotion = false
     @pawn_double_push = false
 
+    @board = board
+
     pawn_flags(board) if piece.type == PAWN
   end
 
@@ -42,14 +44,14 @@ class Move
     end
   end
 
-  def pawn_flags(board)
+  def pawn_flags(board = @board)
     # if the target square is the promotion rank of @piece
     @promotion = true if translation_list[0][1][0] == board.promotion_rank(piece.color)
     # if the difference in rank is 2
     @pawn_double_push = true if (translation_list[0][0][0] - translation_list[0][1][0]).abs == 2
   end
 
-  def update_board_state(board)
+  def update_board_state(board = @board)
     # TO DO
     # Update clocks here
 
@@ -64,7 +66,7 @@ class Move
   end
 
   # calls board.translate_squares(@translation_list)
-  def execute(board)
+  def execute(board = @board)
     update_board_state(board)
 
     board.translate_squares(translation_list)
@@ -73,9 +75,9 @@ class Move
     board.replace_piece(translation_list[0][1], promotion_target) if @promotion
   end
 
-  def valid?(board)
+  def valid?(board = @board)
     # Store the current board position
-    current_state = board.encode_fen_position
+    current_state = board.encode_game_state
     # Execute the proposed move
     board.translate_squares(translation_list)
     # Check whether the player is in check after the proposed move:
