@@ -541,11 +541,37 @@ describe Board do
     context "when the game is in its starting position" do
       before do
         board.restore_position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+        board.generate_move_pool
       end
 
-      it "populates @move_pool with 20 moves" do
-        board.generate_move_pool
+      it "populates @move_pool with 20 objects" do
         expect(board.instance_variable_get(:@move_pool).length).to eq(20)
+      end
+    end
+
+    context "when white has made one pawn move" do
+      before do
+        board.restore_position("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1")
+        board.generate_move_pool
+      end
+
+      it "populates @move_pool with 20 objects" do
+        expect(board.instance_variable_get(:@move_pool).length).to eq(20)
+      end
+
+      it "populates @move_pool with Move objects" do
+        expect(board.instance_variable_get(:@move_pool)).to all(be_a(Move))
+      end
+    end
+
+    context "when e4, d5 have been played" do
+      before do
+        board.restore_position("rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 1")
+        board.generate_move_pool
+      end
+
+      it "populates @move_pool with 31 objects" do
+        expect(board.instance_variable_get(:@move_pool).length).to eq(31)
       end
     end
   end
