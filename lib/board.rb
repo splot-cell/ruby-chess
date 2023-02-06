@@ -128,12 +128,12 @@ class Board
   # generate move_pool(color)
   # for each piece add moves to pool
   # validate each move in move pool does not leave you in check
-  def generate_move_pool(color = active_color)
+  def generate_move_pool(color = @current_player)
     @move_pool = []
-    @data.flatten.each do |sq|
-      next if sq.nil?
+    @data.flatten.each do |piece|
+      next if piece.nil?
 
-      @move_pool += sq.moves.keep_if { |move| move.valid? } if sq.color == color
+      @move_pool += piece.moves(self).keep_if(&:valid?) if piece.color == color
     end
   end
 
