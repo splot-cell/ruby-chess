@@ -596,5 +596,16 @@ describe Board do
         expect(board.instance_variable_get(:@move_pool).length).to eq(31)
       end
     end
+
+    context "In a position with a castling move available" do
+      before do
+        board.restore_position("rnbqkbnr/ppp1p1pp/8/3p1p2/8/3P1N2/PPPPBPPP/RNBQK2R w KQkq - 0 1")
+        board.generate_move_pool
+      end
+
+      it "populates @move_pool with 23 objects" do
+        expect(board.instance_variable_get(:@move_pool).length).to eq(23)
+      end
+    end
   end
 end
