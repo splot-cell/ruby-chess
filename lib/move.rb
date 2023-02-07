@@ -54,6 +54,7 @@ class Move
   def update_board_state(board = @board)
     # TO DO
     # Update clocks here
+    board.clear_move_pool
 
     # If the move is a pawn_double_push, set the board's en_passant_target,
     # otherwise, set it to nil

@@ -99,6 +99,15 @@ class Board
     @move_pool.length.zero?
   end
 
+  def select_random_move
+    generate_move_pool
+    @move_pool.sample
+  end
+
+  def clear_move_pool
+    @move_pool = nil
+  end
+
   # sq under attack?(sq, color)
   # checks if any of the pieces of color are attacking sq
   def sq_under_attack?(square, color)
@@ -132,6 +141,8 @@ class Board
   # for each piece add moves to pool
   # validate each move in move pool does not leave you in check
   def generate_move_pool(color = @current_player)
+    return unless @move_pool.nil?
+
     @move_pool = []
     @data.flatten.each do |piece|
       next if piece.nil?

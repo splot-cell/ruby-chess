@@ -20,11 +20,17 @@ class Game
     # print the board
     puts board
 
-    # get player input
-        # validate input
+    move = human_select_move
 
-      # execute move
+    move.execute
+  end
 
+  def human_select_move
+
+  end
+
+  def computer_select_move
+    board.select_random_move
   end
 
 end
