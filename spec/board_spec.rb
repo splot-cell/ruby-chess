@@ -608,4 +608,34 @@ describe Board do
       end
     end
   end
+
+  describe "#game_over?" do
+    context "when checkmate has been reached" do
+      it "returns true" do
+        board.restore_position("r1bqkbnr/ppp2Qpp/n2p4/4p3/2B5/4P3/PPPP1PPP/RNB1K1NR b KQkq - 0 1")
+        expect(board.game_over?).to be(true)
+      end
+    end
+
+    context "when stalemate has been reached" do
+      it "returns true" do
+        board.restore_position("8/8/8/8/8/1Q6/2K5/k7 b - - 0 1")
+        expect(board.game_over?).to be(true)
+      end
+    end
+
+    context "when one color is in check" do
+      it "returns false" do
+        board.restore_position("rnbqkb1r/ppp2Qpp/3p3n/4p3/2B5/4P3/PPPP1PPP/RNB1K1NR b KQkq - 0 1")
+        expect(board.game_over?).to be(false)
+      end
+    end
+
+    context "when the game is ongoing" do
+      it "returns false" do
+        board.restore_position("rnbqkb1r/ppp3pp/7n/3pp3/2B5/4PQ2/PPPP1PPP/RNB1K1NR w KQkq - 0 1")
+        expect(board.game_over?).to be(false)
+      end
+    end
+  end
 end
