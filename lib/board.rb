@@ -96,7 +96,7 @@ class Board
   # if not -> stalemate
   def game_over?
     generate_move_pool
-    @move_pool.zero?
+    @move_pool.length.zero?
   end
 
   # sq under attack?(sq, color)
