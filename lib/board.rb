@@ -18,6 +18,10 @@ class Board
     @full_move_num = 1
   end
 
+  def initialize_position
+    restore_position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+  end
+
   def restore_position(fen_str)
     position = decode_game_state(fen_str)
     @data = position[:piece_placement_data]
@@ -166,10 +170,9 @@ class Board
     8.times do |rank|
       str += (8 - rank).to_s
       8.times do |file|
-        cell = rank * 8 + file
-        color = (rank + file).even ? "\e[40m" : ""
-        piece = @data[cell]
-        piece_str = piece ? piece.to_s : " "
+        color = (rank + file).even? ? "\e[40m" : ""
+        piece = @data[rank][file]
+        piece_str = piece.nil? ? " " : piece.to_s
         str += "#{color} #{piece_str} \e[0m"
       end
       str += "\n"
