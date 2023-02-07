@@ -43,7 +43,7 @@ class Board
   end
 
   def remove_castling_avail(move)
-    if move.piece.type == Type::KING
+    if move.piece.type == PieceType::KING
       return @castling_avail.delete!("KQ") if move.piece.color == Color::WHITE
 
       @castling_avail.delete!("kq")
