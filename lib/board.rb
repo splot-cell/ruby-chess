@@ -126,7 +126,7 @@ class Board
 
   # in_check?(color)
   # checks if the King of color is under attack?
-  def in_check?(color)
+  def in_check?(color = @current_player)
     sq_under_attack?(find_piece_coor(PieceType::KING, color), opponent_color(color))
   end
 
@@ -170,7 +170,7 @@ class Board
     8.times do |rank|
       str += (8 - rank).to_s
       8.times do |file|
-        color = (rank + file).even? ? "\e[40m" : ""
+        color = (rank + file).even? ? "\e[43m" : "\e[41m"
         piece = @data[rank][file]
         piece_str = piece.nil? ? " " : piece.to_s
         str += "#{color} #{piece_str} \e[0m"

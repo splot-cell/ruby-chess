@@ -19,7 +19,7 @@ class Piece
   end
 
   def to_s
-    (0x2654 + color + type).chr(Encoding::UTF_8)
+    "#{string_color}#{(0x2654 + color + type).chr(Encoding::UTF_8)}"
   end
 
   def self.create(type, color, position = [0, 0])
@@ -49,6 +49,10 @@ class Piece
   end
 
   private
+
+  def string_color
+    color == WHITE ? "\e[37m" : "\e[30m"
+  end
 
   def translated_position(trans_matrix)
     x = @position[0] + trans_matrix[0]
