@@ -13,7 +13,7 @@ class Game
     # play turns until the game is over
     next_turn until @board.game_over?
 
-    # if one color is in check, the other color wins
+    endgame
   end
 
   def next_turn
@@ -24,6 +24,12 @@ class Game
     move = computer_select_move
 
     move.execute
+  end
+
+  def endgame
+    # if one color is in check, the other color wins
+    puts "#{@board}\n\n"
+    puts "Stalemate" unless @board.in_check?
   end
 
   def human_select_move
