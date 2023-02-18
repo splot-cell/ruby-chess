@@ -12,4 +12,11 @@ end
 module Color
   WHITE = 0
   BLACK = 6
+
+  def player_string(player)
+    {
+      0 => "WHITE",
+      6 => "BLACK"
+    }[player]
+  end
 end

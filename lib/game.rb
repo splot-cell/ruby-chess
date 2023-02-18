@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
-require_relative "board.rb"
+require_relative "board"
+require_relative "constants"
 
 class Game
+  include Color
+
   def initialize
     @board = Board.new
     @board.initialize_position
@@ -29,7 +32,7 @@ class Game
   def endgame
     # if one color is in check, the other color wins
     puts "#{@board}\n\n"
-    puts "Stalemate" unless @board.in_check?
+    puts result
   end
 
   def human_select_move
@@ -38,6 +41,12 @@ class Game
 
   def computer_select_move
     @board.select_random_move
+  end
+
+  def result
+    return "#{player_string(@board.opponent_color)} wins!" if @board.in_check?
+
+    "Stalemate"
   end
 
 end

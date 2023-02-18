@@ -39,7 +39,7 @@ class Board
   end
 
   def toggle_current_player
-    @current_player = opponent_color(@current_player)
+    @current_player = opponent_color
   end
 
   def remove_castling_avail(move)
@@ -213,7 +213,7 @@ class Board
     @data[rank_index][file_index].nil?
   end
 
-  def opponent_color(color)
+  def opponent_color(color = current_player)
     color == Color::WHITE ? Color::BLACK : Color::WHITE
   end
 
