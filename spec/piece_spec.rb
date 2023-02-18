@@ -149,84 +149,84 @@ describe Piece do
     context "when the piece is a white king" do
       subject(:white_king) { described_class.create(PieceType::KING, Color::WHITE) }
       it "returns ♔" do
-        expect(white_king.to_s).to eq("♔")
+        expect(white_king.to_s).to eq("\e[37m♔")
       end
     end
 
     context "when the piece is a white queen" do
       subject(:white_queen) { described_class.create(PieceType::QUEEN, Color::WHITE) }
       it "returns ♕" do
-        expect(white_queen.to_s).to eq("♕")
+        expect(white_queen.to_s).to eq("\e[37m♕")
       end
     end
 
     context "when the piece is a white rook" do
       subject(:white_rook) { described_class.create(PieceType::ROOK, Color::WHITE) }
       it "returns ♖" do
-        expect(white_rook.to_s).to eq("♖")
+        expect(white_rook.to_s).to eq("\e[37m♖")
       end
     end
 
     context "when the piece is a white bishop" do
       subject(:white_bishop) { described_class.create(PieceType::BISHOP, Color::WHITE) }
       it "returns ♗" do
-        expect(white_bishop.to_s).to eq("♗")
+        expect(white_bishop.to_s).to eq("\e[37m♗")
       end
     end
 
     context "when the piece is a white knight" do
       subject(:white_knight) { described_class.create(PieceType::KNIGHT, Color::WHITE) }
       it "returns ♘" do
-        expect(white_knight.to_s).to eq("♘")
+        expect(white_knight.to_s).to eq("\e[37m♘")
       end
     end
 
     context "when the piece is a white pawn" do
       subject(:white_pawn) { described_class.create(PieceType::PAWN, Color::WHITE) }
       it "returns ♙" do
-        expect(white_pawn.to_s).to eq("♙")
+        expect(white_pawn.to_s).to eq("\e[37m♙")
       end
     end
 
     context "when the piece is a black king" do
       subject(:black_king) { described_class.create(PieceType::KING, Color::BLACK) }
       it "returns ♚" do
-        expect(black_king.to_s).to eq("♚")
+        expect(black_king.to_s).to eq("\e[30m♚")
       end
     end
 
     context "when the piece is a black queen" do
       subject(:black_queen) { described_class.create(PieceType::QUEEN, Color::BLACK) }
       it "returns ♛" do
-        expect(black_queen.to_s).to eq("♛")
+        expect(black_queen.to_s).to eq("\e[30m♛")
       end
     end
 
     context "when the piece is a black rook" do
       subject(:black_rook) { described_class.create(PieceType::ROOK, Color::BLACK) }
       it "returns ♜" do
-        expect(black_rook.to_s).to eq("♜")
+        expect(black_rook.to_s).to eq("\e[30m♜")
       end
     end
 
     context "when the piece is a black bishop" do
       subject(:black_bishop) { described_class.create(PieceType::BISHOP, Color::BLACK) }
       it "returns ♝" do
-        expect(black_bishop.to_s).to eq("♝")
+        expect(black_bishop.to_s).to eq("\e[30m♝")
       end
     end
 
     context "when the piece is a black knight" do
       subject(:black_knight) { described_class.create(PieceType::KNIGHT, Color::BLACK) }
       it "returns ♞" do
-        expect(black_knight.to_s).to eq("♞")
+        expect(black_knight.to_s).to eq("\e[30m♞")
       end
     end
 
     context "when the piece is a black pawn" do
       subject(:black_pawn) { described_class.create(PieceType::PAWN, Color::BLACK) }
       it "returns ♟" do
-        expect(black_pawn.to_s).to eq("♟")
+        expect(black_pawn.to_s).to eq("\e[30m♟")
       end
     end
   end
