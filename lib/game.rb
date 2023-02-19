@@ -20,9 +20,9 @@ class Game
   end
 
   def next_turn
-
     # print the board
     puts "#{@board}\n\n"
+    puts "Check.\n\n" if @board.in_check?
 
     move = computer_select_move
 
@@ -35,8 +35,19 @@ class Game
     puts result
   end
 
-  def human_select_move
+  def move_format_valid?(str)
+    str.match(/^[NBRQK]{0,1}[a-h]{0,1}[1-8]{0,1}[a-h][1-8][NBRQ]{0,1}$/)
+  end
 
+  def human_select_move
+    choice = gets.chomp
+    # if the choice is not in a recognized format
+    move = board.interpret_move(choice) if move_format_valid?(choice)
+    # if the board cannot identify the piece
+    return move unless move.nil?
+
+    puts "I could not interpret that input. Type 'help' to see the instructions."
+    human_select_move
   end
 
   def computer_select_move
