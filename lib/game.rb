@@ -41,7 +41,7 @@ class Game
 
   def human_select_move
     choice = gets.chomp
-    # if the choice is not in a recognized format
+    # if the choice is in a recognized format
     move = board.interpret_move(choice) if move_format_valid?(choice)
     # if the board cannot identify the piece
     return move unless move.nil?
