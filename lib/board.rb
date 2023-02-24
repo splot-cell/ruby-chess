@@ -2,6 +2,7 @@
 
 require_relative "piece"
 require_relative "fen"
+require_relative "move_interpreter"
 
 class Board
   include FEN
@@ -127,18 +128,31 @@ class Board
   # in_check?(color)
   # checks if the King of color is under attack?
   def in_check?(color = @current_player)
-    sq_under_attack?(find_piece_coor(PieceType::KING, color), opponent_color(color))
+    sq_under_attack?(find_piece_coor(PieceType::KING, color)[0], opponent_color(color))
   end
 
-  def find_piece_coor(type, color)
+  def find_piece(type, color = @current_player)
+    found = []
     @data.each_index do |rank_i|
       @data[rank_i].each_index do |file_i|
         next if @data[rank_i][file_i].nil?
 
-        return [rank_i, file_i] if @data[rank_i][file_i].type == type && @data[rank_i][file_i].color == color
+        found << @data[rank_i][file_i] if @data[rank_i][file_i].type == type && @data[rank_i][file_i].color == color
       end
     end
-    nil
+    found
+  end
+
+  def find_piece_coor(type, color = @current_player)
+    found = []
+    @data.each_index do |rank_i|
+      @data[rank_i].each_index do |file_i|
+        next if @data[rank_i][file_i].nil?
+
+        found << [rank_i, file_i] if @data[rank_i][file_i].type == type && @data[rank_i][file_i].color == color
+      end
+    end
+    found
   end
 
   # generate move_pool(color)
