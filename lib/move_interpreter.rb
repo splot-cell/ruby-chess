@@ -2,13 +2,38 @@
 
 require_relative "constants"
 require_relative "coordinate_translator"
+require_relative "move"
 
 class MoveInterpreter
   include PieceType
 
-  def initialize(str, coordinate_translator = CoordinateTranslator.new)
-    @move_data = str.match(/^([NBRQK])?([a-h])?([1-8])?([a-h][1-8])([NBRQ])?$/).captures
+  def initialize(board, coordinate_translator = CoordinateTranslator.new)
     @coordinate_translator = coordinate_translator
+    @board = board
+    @piece = nil
+  end
+
+  def interpret_move(str, board = @board)
+    @board = board
+    @move_data = str.match(/^([NBRQK])?([a-h])?([1-8])?([a-h][1-8])([NBRQ])?$/).captures
+    return nil unless identify_piece
+    # if one piece, return the move
+    move
+  end
+
+  private
+
+  def move
+    Move.new(@piece, target_square, @board, promotion_value)
+  end
+
+  def identify_piece
+    piece_list = @board.find_piece(piece_type).keep_if { |piece| piece.possible_move_squares(@board).include?(target_square) }
+    # if more than one piece, filter by disambig
+    return false unless piece_list.length == 1
+
+    @piece = piece_list[0]
+    true
   end
 
   def piece_type
@@ -28,10 +53,8 @@ class MoveInterpreter
   end
 
   def promotion_value
-    @move_data[4].nil? ? nil : interpret_type(@move_data[4])
+    @move_data[4].nil? ? PieceType::QUEEN : interpret_type(@move_data[4])
   end
-
-  private
 
   def interpret_type(char)
     return PieceType::PAWN if char.nil?
