@@ -89,7 +89,7 @@ describe MoveInterpreter do
         expect(move.promotion).to be(true)
       end
 
-      it "returns a move with a Queen promotion target" do
+      it "returns a move with a Knight promotion target" do
         expect(move.instance_variable_get(:@promotion_value)).to eq(PieceType::KNIGHT)
       end
     end
