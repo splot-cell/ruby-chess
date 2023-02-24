@@ -3,7 +3,7 @@
 class CoordinateTranslator
   def translate_square(str)
     square = str.split(//)
-    [translate_file(square[0]), translate_rank(square[1])]
+    [translate_rank(square[1]), translate_file(square[0])]
   end
 
   def translate_file(char)
