@@ -14,6 +14,10 @@ class MoveInterpreter
     @piece_list = nil
   end
 
+  def str_format_valid?(move_string)
+    move_string.match(/^[NBRQK]{0,1}[a-h]{0,1}[1-8]{0,1}[a-h][1-8][NBRQ]{0,1}$/)
+  end
+
   def interpret_move(str, board = @board)
     @board = board
     @move_data = str.match(/^([NBRQK])?([a-h])?([1-8])?([a-h][1-8])([NBRQ])?$/).captures
