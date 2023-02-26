@@ -97,7 +97,7 @@ describe MoveInterpreter do
     context "when the move is ambiguous" do
       let(:move_string) { "Ra4" }
       before do
-        board.restore_position("4k3/8/R7/8/8/8/8/R3K3 b - - 0 1")
+        board.restore_position("4k3/8/R7/8/8/8/8/R3K3 w - - 0 1")
       end
 
       it "returns nil" do
@@ -108,7 +108,7 @@ describe MoveInterpreter do
     context "when the move is unambiguous by specifying piece rank" do
       let(:move_string) { "R1a4" }
       before do
-        board.restore_position("4k3/8/R7/8/8/8/8/R3K3 b - - 0 1")
+        board.restore_position("4k3/8/R7/8/8/8/8/R3K3 w - - 0 1")
       end
 
       it "returns a move with the correct piece" do
@@ -124,7 +124,7 @@ describe MoveInterpreter do
     context "when the move is unambiguous by specifying piece file" do
       let(:move_string) { "Nge4" }
       before do
-        board.restore_position("4k3/8/R7/6N1/8/2N5/8/R3K3 b - - 0 1")
+        board.restore_position("4k3/8/R7/6N1/8/2N5/8/R3K3 w - - 0 1")
       end
 
       it "returns a move with the correct piece" do
@@ -140,7 +140,7 @@ describe MoveInterpreter do
     context "when the move is unambiguous by specifying piece file and rank" do
       let(:move_string) { "Ng5e4" }
       before do
-        board.restore_position("4k3/8/R7/6N1/8/2N3N1/8/R3K3 b - - 0 1")
+        board.restore_position("4k3/8/R7/6N1/8/2N3N1/8/R3K3 w - - 0 1")
       end
 
       it "returns a move with the correct piece" do
