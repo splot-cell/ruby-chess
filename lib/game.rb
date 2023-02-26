@@ -82,5 +82,4 @@ class Game
 
     "Stalemate"
   end
-
 end
