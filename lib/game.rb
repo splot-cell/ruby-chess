@@ -32,9 +32,15 @@ class Game
 
     return if choice == "1"
 
-    puts "\nI'm sorry, saving and loading is not yet supported..."
+    return load_savegame if choice == "2"
+
+    puts "\nI'm sorry, I didn't understand that choice. Try again..."
 
     game_mode
+  end
+
+  def load_savegame
+    puts "Saving and loading is not currently supported"
   end
 
   def next_turn

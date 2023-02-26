@@ -61,7 +61,7 @@ module GameText
       [1] Start a new game
       [2] Load a saved game
 
-      (type "1" or "2" and hit enter)...
+      (type "1" or "2" and hit enter...)
     HEREDOC
   end
 
