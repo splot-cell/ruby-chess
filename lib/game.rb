@@ -2,16 +2,23 @@
 
 require_relative "board"
 require_relative "constants"
+require_relative "move_interpreter"
+require_relative "game_text"
 
 class Game
   include Color
+  include GameText
 
   def initialize
     @board = Board.new
     @board.initialize_position
+    @move_interpreter = MoveInterpreter.new(@board)
   end
 
   def play
+    puts welcome
+
+    game_mode
 
     # play turns until the game is over
     next_turn until @board.game_over?
@@ -19,12 +26,23 @@ class Game
     endgame
   end
 
+  def game_mode
+    puts game_mode_prompt
+    choice = gets.chomp
+
+    return if choice == "1"
+
+    puts "\nI'm sorry, saving and loading is not yet supported..."
+
+    game_mode
+  end
+
   def next_turn
     # print the board
-    puts "#{@board}\n\n"
+    puts "\n#{@board}\n\n"
     puts "Check.\n\n" if @board.in_check?
 
-    move = computer_select_move
+    move = @board.current_player == WHITE ? human_select_move : computer_select_move
 
     move.execute
   end
@@ -35,14 +53,11 @@ class Game
     puts result
   end
 
-  def move_format_valid?(str)
-    str.match(/^[NBRQK]{0,1}[a-h]{0,1}[1-8]{0,1}[a-h][1-8][NBRQ]{0,1}$/)
-  end
-
   def human_select_move
+    print user_prompt
     choice = gets.chomp
     # if the choice is in a recognized format
-    move = board.interpret_move(choice) if move_format_valid?(choice)
+    move = @move_interpreter.interpret_move(choice) if @move_interpreter.move_format_valid?(choice)
     # if the board cannot identify the piece
     return move unless move.nil?
 
@@ -51,6 +66,8 @@ class Game
   end
 
   def computer_select_move
+    puts computer_prompt
+    sleep(1.5)
     @board.select_random_move
   end
 
