@@ -14,7 +14,7 @@ class MoveInterpreter
     @piece_list = nil
   end
 
-  def str_format_valid?(move_string)
+  def move_format_valid?(move_string)
     move_string.match(/^[NBRQK]{0,1}[a-h]{0,1}[1-8]{0,1}[a-h][1-8][NBRQ]{0,1}$/)
   end
 
