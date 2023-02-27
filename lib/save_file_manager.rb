@@ -46,7 +46,7 @@ module SaveFileManager
   end
 
   def generate_filename
-    filename = "#{filename_adjectives.sample}_#{filename_nouns.sample}.json"
+    filename = "#{filename_adjectives.sample}_#{filename_nouns.sample}.fen"
     return filename unless file_list.include?(filename)
 
     generate_filename
