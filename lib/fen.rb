@@ -69,18 +69,8 @@ module FEN
   end
 
   def encode_game_state
-    state = encode_fen_position
-    state += " "
-    state += fen_active_color
-    state += " "
-    state += @castling_avail
-    state += " "
-    state += encode_fen_en_passant
-    state += " "
-    state += @half_move_clk.to_s
-    state += " "
-    state += @full_move_num.to_s
-    state
+    "#{encode_fen_position} #{fen_active_color} #{@castling_avail} "\
+    "#{encode_fen_en_passant} #{@half_move_clk.to_s} #{@full_move_num.to_s}"
   end
 
   def fen_empty_square?(char)
