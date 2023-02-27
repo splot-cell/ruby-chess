@@ -5,6 +5,7 @@ require_relative "fen"
 require_relative "move_interpreter"
 require_relative "coordinate_translator"
 
+# Stores the board state and associated methods
 class Board
   include FEN
 

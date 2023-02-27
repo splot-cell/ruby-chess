@@ -4,6 +4,7 @@ require_relative "constants"
 require_relative "coordinate_translator"
 require_relative "move"
 
+# Translates user input into executable moves
 class MoveInterpreter
   include PieceType
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Contains constants for identifying piece type
 module PieceType
   KING = 0
   QUEEN = 1
@@ -9,6 +10,7 @@ module PieceType
   PAWN = 5
 end
 
+# Contains constants for identifying and printing piece color
 module Color
   WHITE = 0
   BLACK = 6

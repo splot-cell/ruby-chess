@@ -3,6 +3,7 @@
 require "json"
 require_relative "save_file_manager_text"
 
+# Allows games to be saved and loaded, and handles UI for these functions
 module SaveFileManager
   include SaveFileManagerText
 

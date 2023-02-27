@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Translates between chess coordinates and array indexes
 class CoordinateTranslator
   def translate_square(str)
     square = str.split(//)

@@ -2,6 +2,7 @@
 
 require_relative "constants"
 
+# Base class for all pieces
 class Piece
   include PieceType
   include Color
@@ -65,6 +66,7 @@ class Piece
   end
 end
 
+# Base class for pieces that step or jump
 class SteppingPiece < Piece
   def accessible_squares(translation_list, board)
     translation_list.map { |t| translated_position(t) }.keep_if { |p| board.within_bounds?(p) }
@@ -75,6 +77,7 @@ class SteppingPiece < Piece
   end
 end
 
+# Base class for pieces that can slide along a line
 class SlidingPiece < Piece
   def accessible_squares(translation_list, board)
     arr = []

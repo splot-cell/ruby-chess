@@ -6,6 +6,7 @@ require_relative "move_interpreter"
 require_relative "game_text"
 require_relative "save_file_manager"
 
+# Contains the game logic
 class Chess
   include Color
   include GameText

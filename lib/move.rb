@@ -8,6 +8,7 @@ require_relative "pieces/rook"
 require_relative "pieces/queen"
 require_relative "pieces/king"
 
+# Contains data needed to validate and execute a move
 class Move
   include PieceType
 
@@ -60,8 +61,6 @@ class Move
   end
 
   def update_board_state(board = @board)
-    # TO DO
-    # Update clocks here
     board.update_half_move_clk if half_move_clk_update?
     board.update_full_move_num if piece.color == Color::BLACK
     board.clear_move_pool
