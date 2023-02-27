@@ -6,6 +6,10 @@ class CoordinateTranslator
     [translate_rank(square[1]), translate_file(square[0])]
   end
 
+  def translate_square_index(file, rank)
+    translate_file_index(file) + translate_rank_index(rank)
+  end
+
   def translate_file(char)
     char.ord - 97
   end

@@ -3,6 +3,7 @@
 require_relative "piece"
 require_relative "fen"
 require_relative "move_interpreter"
+require_relative "coordinate_translator"
 
 class Board
   include FEN
@@ -17,6 +18,7 @@ class Board
     @en_passant_target = nil
     @half_move_clk = 0
     @full_move_num = 1
+    @coordinate_translator = CoordinateTranslator.new
   end
 
   def initialize_position

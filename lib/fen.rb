@@ -2,7 +2,7 @@
 
 require_relative "piece"
 require_relative "constants"
-require_relative "coordinates"
+require_relative "coordinate_translator"
 
 # Module for interfacing between Forsyth-Edwards Notation (FEN) and classes
 
@@ -10,8 +10,6 @@ require_relative "coordinates"
 # https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
 
 module FEN
-  include Coordinates
-
   def decode_fen_type(char)
     {
       "k" => PieceType::KING,
@@ -70,7 +68,7 @@ module FEN
 
   def encode_game_state
     "#{encode_fen_position} #{fen_active_color} #{@castling_avail} "\
-    "#{encode_fen_en_passant} #{@half_move_clk.to_s} #{@full_move_num.to_s}"
+    "#{encode_fen_en_passant} #{@half_move_clk} #{@full_move_num}"
   end
 
   def fen_empty_square?(char)
@@ -84,13 +82,13 @@ module FEN
   def decode_fen_en_passant(str)
     return if str == "-"
 
-    [num_to_rank_index(str[1]), letter_to_file_index(str[0])]
+    @coordinate_translator.translate_square(str)
   end
 
   def encode_fen_en_passant
     return "-" if @en_passant_target.nil?
 
-    file_index_to_letter(@en_passant_target[0]) + rank_index_to_number_str(@en_passant_target[1])
+    @coordinate_translator.translate_square_index(@en_passant_target[1], @en_passant_target[0])
   end
 
   def decode_fen_position(fen_str)
