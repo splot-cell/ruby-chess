@@ -6,7 +6,7 @@ require_relative "move_interpreter"
 require_relative "game_text"
 require_relative "save_file_manager"
 
-class Game
+class Chess
   include Color
   include GameText
   include SaveFileManager

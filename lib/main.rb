@@ -1,3 +1,3 @@
-require_relative "game"
+require_relative "chess"
 
-Game.new.play
+Chess.new.play
