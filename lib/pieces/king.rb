@@ -30,9 +30,10 @@ class King < SteppingPiece
   end
 
   def possible_castling_squares(board)
+    king_starting_square = color == WHITE ? [7, 4] : [0, 4]
     castling_moves = []
     board.rook_starting_squares(color).each do |sq|
-      castling_moves << castling_square(sq) if board.castling_valid?(sq)
+      castling_moves << castling_square(sq) if board.castling_valid?(sq, king_starting_square, color)
     end
     castling_moves
   end

@@ -400,6 +400,8 @@ describe Board do
     let(:black_kingside) { [0, 7] }
     let(:white_queenside) { [7, 0] }
     let(:white_kingside) { [7, 7] }
+    let(:black_king_starting_square) { [0, 4] }
+    let(:white_king_starting_square) { [7, 4] }
     context "when the white king can no longer castle" do
       context "when the black king can castle kingside" do
         before do
@@ -407,20 +409,20 @@ describe Board do
         end
 
         it "returns true for black kingside" do
-          expect(board.castling_valid?(black_kingside)).to eq(true)
+          expect(board.castling_valid?(black_kingside, black_king_starting_square, Color::BLACK)).to eq(true)
         end
 
         it "returns false for black queenside" do
-          expect(board.castling_valid?(black_queenside)).to eq(false)
+          expect(board.castling_valid?(black_queenside, black_king_starting_square, Color::BLACK)).to eq(false)
         end
 
         context "when the kings has moved" do
           it "returns false for white kingside" do
-            expect(board.castling_valid?(white_kingside)).to eq(false)
+            expect(board.castling_valid?(white_kingside, white_king_starting_square, Color::WHITE)).to eq(false)
           end
 
           it "returns false for white queenside" do
-            expect(board.castling_valid?(white_queenside)).to eq(false)
+            expect(board.castling_valid?(white_queenside, white_king_starting_square, Color::WHITE)).to eq(false)
           end
         end
       end
@@ -434,25 +436,25 @@ describe Board do
 
         context "when pieces are between the king and rook" do
           it "returns false for black kingside" do
-            expect(board.castling_valid?(black_kingside)).to eq(false)
+            expect(board.castling_valid?(black_kingside, black_king_starting_square, Color::BLACK)).to eq(false)
           end
         end
 
         context "when the king and rook are under attack" do
           it "returns false for black queenside" do
-            expect(board.castling_valid?(black_queenside)).to eq(false)
+            expect(board.castling_valid?(black_queenside, black_king_starting_square, Color::BLACK)).to eq(false)
           end
         end
 
         context "when the king can castle kingside" do
           it "returns true for white kingside" do
-            expect(board.castling_valid?(white_kingside)).to eq(true)
+            expect(board.castling_valid?(white_kingside, white_king_starting_square, Color::WHITE)).to eq(true)
           end
         end
 
         context "when a square between the king and rook is under attack" do
           it "returns false for white queenside" do
-            expect(board.castling_valid?(white_queenside)).to eq(false)
+            expect(board.castling_valid?(white_queenside, white_king_starting_square, Color::WHITE)).to eq(false)
           end
         end
       end

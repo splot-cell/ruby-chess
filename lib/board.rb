@@ -64,33 +64,40 @@ class Board
     end
   end
 
-  # castling_valid?(rook_square)
-  # checks if castling_avail
-  # checks if squares between rook and king are free
-  # checks if squares are under attack
-  def castling_valid?(rook_square)
-    black_king_square = [0, 4]
-    white_king_square = [7, 4]
+  def empty_squares_between?(rook, king)
+    squares_between_ex(rook, king).all? { |sq| square_empty?(sq) }
+  end
 
+  def no_squares_under_attack_between?(rook, king, color)
+    squares_between_in(rook, king).none? { |sq| sq_under_attack?(sq, opponent_color(color)) }
+  end
+
+  def castling_avail_includes?(rook_square)
     case rook_square
     when [0, 0]
       return false unless @castling_avail.include?("q")
 
-      return false unless squares_between_ex(rook_square, black_king_square).all? { |sq| square_empty?(sq) } && squares_between_in(rook_square, black_king_square).none? { |sq| sq_under_attack?(sq, Color::WHITE) }
     when [0, 7]
       return false unless @castling_avail.include?("k")
 
-      return false unless squares_between_ex(rook_square, black_king_square).all? { |sq| square_empty?(sq) } && squares_between_in(rook_square, black_king_square).none? { |sq| sq_under_attack?(sq, Color::WHITE) }
     when [7, 0]
       return false unless @castling_avail.include?("Q")
 
-      return false unless squares_between_ex(rook_square, white_king_square).all? { |sq| square_empty?(sq) } && squares_between_in(rook_square, white_king_square).none? { |sq| sq_under_attack?(sq, Color::BLACK) }
     when [7, 7]
       return false unless @castling_avail.include?("K")
 
-      return false unless squares_between_ex(rook_square, white_king_square).all? { |sq| square_empty?(sq) } && squares_between_in(rook_square, white_king_square).none? { |sq| sq_under_attack?(sq, Color::BLACK) }
     end
     true
+  end
+
+  # castling_valid?(rook_square)
+  # checks if castling_avail
+  # checks if squares between rook and king are free
+  # checks if squares are under attack
+  def castling_valid?(rook_square, king_square, color)
+    empty_squares_between?(rook_square, king_square) &&
+      no_squares_under_attack_between?(rook_square, king_square, color) &&
+      castling_avail_includes?(rook_square)
   end
 
   def replace_piece(sq, piece)
