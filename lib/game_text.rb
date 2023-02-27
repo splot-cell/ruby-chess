@@ -3,6 +3,10 @@
 module GameText
   def instructions
     <<~HEREDOC
+    ______________________
+    _-_- INSTRUCTIONS -_-_
+    ----------------------
+
     Making a move:
 
     To make a move, simply type the piece identifier followed by the square you would like to move to. Piece identifiers are as follows:

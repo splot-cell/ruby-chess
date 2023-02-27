@@ -20,6 +20,7 @@ module SaveFileManager
       file.puts(JSON.dump(data))
     end
     puts game_saved_msg(filename)
+    sleep(1)
     exit
   end
 
