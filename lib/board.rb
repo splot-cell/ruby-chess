@@ -179,6 +179,18 @@ class Board
     end
   end
 
+  def update_full_move_num
+    @full_move_num += 1
+  end
+
+  def update_half_move_clk
+    @half_move_clk += 1
+  end
+
+  def reset_half_clk
+    @half_move_clk = 0
+  end
+
   def to_s
     str = ""
     8.times do |rank|

@@ -15,6 +15,7 @@ class Move
 
   def initialize(piece, target_square, board, promotion_value = QUEEN)
     @piece = piece
+    @target_square = target_square
     @translation_list = create_translation_list(target_square)
     @promotion_value = promotion_value
 
@@ -51,9 +52,18 @@ class Move
     @pawn_double_push = true if (translation_list[0][0][0] - translation_list[0][1][0]).abs == 2
   end
 
+  def half_move_clk_update?
+    return true if @board.square_empty?(@target_square) && piece.type != PAWN
+
+    @board.reset_half_clk
+    false
+  end
+
   def update_board_state(board = @board)
     # TO DO
     # Update clocks here
+    board.update_half_move_clk if half_move_clk_update?
+    board.update_full_move_num if piece.color == Color::BLACK
     board.clear_move_pool
 
     # If the move is a pawn_double_push, set the board's en_passant_target,
