@@ -16,3 +16,6 @@ Command-line chess written in Ruby with tests using RSpec. Games can be saved an
 
 ![A screenshot from this command line chess game](imgs/ruby_chess.png)
 
+## Live Preview
+
+[See a live preview on Replit.](https://replit.com/@splot-cell/ruby-chess)
